@@ -1,9 +1,11 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import HeaderNotSignedIn from "@/components/atoms/layouts/headers/HeaderNotSignedIn";
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <HeaderNotSignedIn />
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;

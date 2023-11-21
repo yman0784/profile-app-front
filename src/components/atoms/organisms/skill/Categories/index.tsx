@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SkillCard from "../SkillsCard/idex";
+import Link from "next/link";
 
 const Categories = () => {
   const [categoryNames, setCategoryNames] = useState([]);
@@ -13,7 +14,7 @@ const Categories = () => {
     withCredentials: true,
   });
 
-  const getCategoryNames = () => {
+  const getCategory = () => {
     apiClient
       .get("http://localhost:3000/api/v1/skills")
       .then((response) => {
@@ -26,14 +27,25 @@ const Categories = () => {
         console.error("Error fetching todos:", error);
       });
   };
+
+  const onClickAddSkill = async () => {
+    console.log("clickAdd");
+  };
+
   useEffect(() => {
-    getCategoryNames();
+    getCategory();
   }, []);
 
   return (
     <div>
       {categoryNames.map((name, index) => (
-        <SkillCard key={name} name={name} skills={skills[index]} />
+        <div key={name}>
+          <p>{name}</p>
+          <Link href="http://localhost:8000/api/v1/skills">
+            <button onClick={onClickAddSkill}>スキルを追加する</button>
+          </Link>
+          <SkillCard key={name} skills={skills[index]} />
+        </div>
       ))}
     </div>
   );

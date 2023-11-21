@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { Router } from "next/router";
 
 const HeaderSignedIn = () => {
   const handleLogoutResponse = (res) => {
@@ -22,6 +23,7 @@ const HeaderSignedIn = () => {
         }
       );
       handleLogoutResponse(res);
+      Router.push("http://localhost:8000/api/v1/auth/sign_in");
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
     }

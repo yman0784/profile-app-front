@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
-import Categories from "@/components/atoms/organisms/skill/CategoryCard";
+import Categories from "@/components/atoms/organisms/skill/Categories";
 
 const Skills = () => {
   return (

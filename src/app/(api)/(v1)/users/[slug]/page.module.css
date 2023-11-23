@@ -1,0 +1,30 @@
+.title {
+  border-bottom: 3px solid #808080;
+  font-size: 30px;
+  width: 40%;
+}
+.userCard {
+}
+.userContainer {
+  width: 70%;
+  margin: 3vh auto 10vh;
+  display: flex;
+  justify-content: center;
+}
+.userSentence {
+  margin-left: 7vh;
+  width: fit-content;
+}
+.button {
+  background-color: #1b5678;
+  color: #fff;
+  width: 40%;
+  height: 5vh;
+  font-size: larger;
+  font-weight: 100;
+  letter-spacing: inherit;
+  border-radius: 5px;
+}
+.userIntroduction {
+  margin: 2vh 0 2vh;
+}

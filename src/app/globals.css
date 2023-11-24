@@ -55,6 +55,8 @@ button,
 textarea,
 select {
   font: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */

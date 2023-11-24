@@ -13,7 +13,7 @@
 }
 .userSentence {
   margin-left: 7vh;
-  width: fit-content;
+  width: 60vw;
 }
 .button {
   background-color: #1b5678;
@@ -27,4 +27,22 @@
 }
 .userIntroduction {
   margin: 2vh 0 2vh;
+}
+.skillContainer {
+}
+.skillTitle {
+  border-bottom: 3px solid #808080;
+  font-size: 30px;
+  width: 30%;
+  margin: 10px auto;
+  text-align: center;
+  padding-bottom: 1vh;
+  letter-spacing: inherit;
+}
+.skillButtonwrapper {
+  margin: 3vh auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }

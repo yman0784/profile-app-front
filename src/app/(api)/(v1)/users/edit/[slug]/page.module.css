@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 100;
+  width: 40vw;
+}
+
+.editContainer {
+  width: 70%;
+  margin: 7vh auto 10vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.buttonWrapper {
+  width: 40vw;
+  display: flex;
+  justify-content: center;
+}
+.button {
+  background-color: #1b5678;
+  color: #fff;
+  width: 50%;
+  height: 5vh;
+  font-size: large;
+  font-weight: lighter;
+  border-radius: 5px;
+}
+.editBox {
+  border: none;
+  border-bottom: 3px solid #000;
+  resize: none;
+  color: #212121;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  color: #757575;
+}

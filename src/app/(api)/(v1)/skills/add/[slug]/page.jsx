@@ -20,6 +20,18 @@ const Skills = (props) => {
     setInputLevel(event.target.value);
   };
 
+  const generateOptions = (skill) => {
+    const options = [];
+    for (let i = 0; i <= 100; i += 10) {
+      options.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return options;
+  };
+
   const onClickAddSkill = async () => {
     console.log("clickaddskill");
     console.log(props);
@@ -50,7 +62,7 @@ const Skills = (props) => {
     }
   };
 
-  const renderSkillForm = () => {
+  const renderSkillForm = (skill) => {
     // ここで必要な条件を追加してください
     // 例: ユーザーが特定の条件を満たしている場合にフォームを表示する
     return (
@@ -59,7 +71,7 @@ const Skills = (props) => {
         {/* <p>{router.query.categoryId}</p> */}
         <input onChange={onchangeLanguage}></input>
         <br></br>
-        <input onChange={onchangeLevel}></input>
+        <select onChange={onchangeLevel}>{generateOptions(skill)}</select>
         <br></br>
         <button onClick={onClickAddSkill}>追加する</button>
       </>

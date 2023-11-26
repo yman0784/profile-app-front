@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -13,12 +13,17 @@ const UserDetails = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const params = useParams();
   const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
 
   const ToEditSelfIntroduction = () => {
+    if (!user) {
+      console.error("User is null");
+      return;
+    }
     localStorage.setItem("selfIntroduction", user.self_introduction);
-    router.push("http://localhost:8000/users/edit");
+    router.push(`http://localhost:8000/users/edit/${params.slug}`);
   };
 
   const ToSkillIndex = () => {
@@ -77,6 +82,7 @@ const UserDetails = () => {
               <button
                 className={styles.button}
                 onClick={ToEditSelfIntroduction}
+                user={user}
               >
                 自己紹介を編集する
               </button>

@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "./index.module.css";
+import { useRouter } from "next/navigation";
 
 const SkillCard = ({ skills }) => {
   const [selectedLevel, setSelectedLevel] = useState("");
+  const router = useRouter();
   const generateOptions = (skill) => {
     const options = [];
     for (let i = 0; i <= 100; i += 10) {
@@ -38,9 +40,29 @@ const SkillCard = ({ skills }) => {
         `http://localhost:3000/api/v1/skills/${Params.id}`,
         Params
       );
+      router.refresh();
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
     }
+    console.log(skill.id);
+  };
+  const onClickSkillDelete = async (skill) => {
+    const apiClient = axios.create({
+      withCredentials: true,
+    });
+    const Params = {
+      id: skill.id,
+    };
+    try {
+      const res = await apiClient.delete(
+        `http://localhost:3000/api/v1/skills/${Params.id}`,
+        Params
+      );
+      router.refresh();
+    } catch (error) {
+      console.error("エラーレスポンス:", error.response);
+    }
+    console.log(skill.id);
   };
 
   return (
@@ -62,7 +84,9 @@ const SkillCard = ({ skills }) => {
             <button onClick={() => onClickSaveSkillLevel(skill)}>
               習得レベルを保存する
             </button>
-            <button>スキルを削除する</button>
+            <button onClick={() => onClickSkillDelete(skill)}>
+              スキルを削除する
+            </button>
           </div>
         ))}
       </div>

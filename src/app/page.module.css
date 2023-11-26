@@ -97,7 +97,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -226,4 +226,24 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.App {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.target {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  pointer-events: none; /* マウスイベントを無効にする */
+  transition: transform 0.1s ease-out;
+}
+
+.target:hover {
+  transform: scale(1.5);
 }

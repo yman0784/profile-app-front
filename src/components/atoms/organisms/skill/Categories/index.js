@@ -1,3 +1,5 @@
+"use client";
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SkillCard from "../SkillsCard";
@@ -9,24 +11,25 @@ const Categories = () => {
   const [categoryNames, setCategoryNames] = useState([]);
   const [responseData, setResponseData] = useState({});
 
-  const getCategorySkills = (name) => {
-    switch (name) {
-      case "フロントエンド":
-        return fskills;
-      case "バックエンド":
-        return bskills;
-      case "インフラ":
-        return iskills;
-      default:
-        return [];
-    }
-  };
+  // const getCategorySkills = (name) => {
+  //   switch (name) {
+  //     case "フロントエンド":
+  //       return fskills;
+  //     case "バックエンド":
+  //       return bskills;
+  //     case "インフラ":
+  //       return iskills;
+  //     default:
+  //       return [];
+  //   }
+  // };
 
   const [fskills, setFskills] = useState([]);
   const [bskills, setBskills] = useState([]);
   const [iskills, setIskills] = useState([]);
+  const [receivedCategoryId, setReceivedCategoryId] = useState([]);
   const [selectedSkills, setselectedSkills] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  // const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
   const skills = [fskills, bskills, iskills];
   const router = useRouter();
@@ -44,6 +47,14 @@ const Categories = () => {
         setFskills(response.data.frontskills);
         setBskills(response.data.backskills);
         setIskills(response.data.infraskills);
+        setReceivedCategoryId(response.data.category_id.id);
+
+        const categoryIds = response.data.category_id.map(
+          (category) => category.id
+        );
+        setReceivedCategoryId(categoryIds);
+
+        console.log(response);
       })
       .catch((error) => {
         console.error("Error fetching todos:", error);
@@ -51,13 +62,25 @@ const Categories = () => {
   };
 
   const onClickAddSkill = (name) => {
-    // console.log("clickAdd");
-    // console.log(name);
-    // console.log(responseData);
-    // console.log(categories);
-    setselectedSkills(getCategorySkills(name));
-    const categoryId = getCategorySkills(name)[0]?.category_id;
-    setSelectedCategoryId(categoryId);
+    console.log(name);
+    const categoryId = (() => {
+      switch (name) {
+        case "フロントエンド":
+          return receivedCategoryId[0];
+        case "バックエンド":
+          return receivedCategoryId[1];
+        case "インフラ":
+          return receivedCategoryId[2];
+        default:
+          return [];
+      }
+    })();
+
+    // setselectedSkills(getCategorySkills(name));
+
+    // const categoryId = getCategorySkills(name)[0]?.category_id;
+    // setSelectedCategoryId(categoryId);
+    // console.log(skills);
 
     if (categoryId) {
       router.push(`/skills/add/${categoryId}`);
@@ -67,8 +90,9 @@ const Categories = () => {
   useEffect(() => {
     getCategory();
     console.log("selectedSkills changed:", selectedSkills);
-    console.log(selectedCategoryId);
-  }, [selectedSkills]);
+    // console.log(selectedCategoryId);
+    console.log(receivedCategoryId);
+  }, []);
 
   return (
     <div>

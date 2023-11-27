@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 
 const handleFileChange = (event, userId) => {
   const params = useParams;
-  // イベントオブジェクトからアクセスできる要素を確認し、存在しない場合は処理を中止
   if (!event.target || !event.target.files || event.target.files.length === 0) {
     return;
   }
@@ -46,7 +45,11 @@ const AddImage = (userId) => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        width: "40%",
+      }}
+    >
       <input
         type="file"
         accept="image/*"
@@ -54,7 +57,20 @@ const AddImage = (userId) => {
         ref={fileInputRef}
         style={{ display: "none" }}
       />
-      <button onClick={onButtonClick}>画像を追加する</button>
+      <button
+        onClick={onButtonClick}
+        style={{
+          borderRadius: "5px",
+          backgroundColor: "#e5e5e5",
+          width: "100%",
+          border: "none",
+          fontSize: "15px",
+          padding: "2% 10%",
+          color: "#393939",
+        }}
+      >
+        画像ファイルを添付する
+      </button>
     </div>
   );
 };

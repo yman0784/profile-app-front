@@ -1,17 +1,22 @@
 "use client";
 
 import Auth from "@/components/Auth";
+import Modal from "@/components/atoms/layouts/Modal/Modal";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import styles from "./page.module.css";
 
 const Skills = (props) => {
   const [inputLanguage, setInputLanguage] = useState("");
   const [inputLevel, setInputLevel] = useState("");
+  const [show, setShow] = useState(false);
+
   const router = useRouter();
   const { params } = props;
   const { slug } = params;
+  const searchParams = useSearchParams();
 
   const onchangeLanguage = (event) => {
     setInputLanguage(event.target.value);
@@ -33,9 +38,6 @@ const Skills = (props) => {
   };
 
   const onClickAddSkill = async () => {
-    console.log("clickaddskill");
-    console.log(props);
-    console.log(slug);
     const apiClient = axios.create({
       withCredentials: true,
     });
@@ -52,9 +54,16 @@ const Skills = (props) => {
         Params
       );
       if (res.status === 201) {
-        router.push("http://localhost:8000/skills/index");
+        router.push(
+          `/skills/index?showModal=true&1st=${searchParams.get(
+            "categoryName"
+          )}&2nd=に${inputLanguage}を&3rd=習得レベル${inputLevel}で追加しました!`,
+          undefined,
+          {
+            shallow: true,
+          }
+        );
       }
-      console.log(res);
       setInputLanguage("");
       setInputLevel("");
     } catch (error) {
@@ -67,13 +76,32 @@ const Skills = (props) => {
     // 例: ユーザーが特定の条件を満たしている場合にフォームを表示する
     return (
       <>
-        <h2>にスキルを追加</h2>
-        {/* <p>{router.query.categoryId}</p> */}
-        <input onChange={onchangeLanguage}></input>
-        <br></br>
-        <select onChange={onchangeLevel}>{generateOptions(skill)}</select>
-        <br></br>
-        <button onClick={onClickAddSkill}>追加する</button>
+        <div className={styles.skillEditContainer}>
+          <h2 className={styles.title}>{`${searchParams.get(
+            "categoryName"
+          )}にスキルを追加`}</h2>
+          <label className={styles.label}>
+            習得スキル名
+            <input
+              onChange={onchangeLanguage}
+              className={styles.skillEditBox}
+            ></input>
+            <br></br>
+            習得レベル
+            <div className={styles.skillEditBoxWrapper}>
+              <select className={styles.skillEditBox} onChange={onchangeLevel}>
+                {generateOptions(skill)}
+              </select>
+            </div>
+            0~100の間で選択してください
+            <br></br>
+          </label>
+          <br></br>
+          <br></br>
+          <button className={styles.button} onClick={onClickAddSkill}>
+            追加する
+          </button>
+        </div>
       </>
     );
   };

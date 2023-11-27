@@ -54,7 +54,7 @@ const Edit = ({ user }) => {
   };
 
   return (
-    <div>
+    <>
       <HeaderSignedIn />
       <div className={styles.editContainer}>
         <h2 className={styles.title}>自己紹介を編集する</h2>
@@ -69,12 +69,13 @@ const Edit = ({ user }) => {
           />
           200文字以上、800文字未満で入力してください
         </label>
-        <p>{pathname}</p>
-        <p>{params.slug}</p>
-        <p>{user}</p>
+        <br></br>
+        <br></br>
         <br></br>
         <label className={styles.label}>アバター画像</label>
-        <AddImage userId={params.slug} />
+        <div className={styles.imageButtonWrapper}>
+          <AddImage userId={params.slug} />
+        </div>
         <br></br>
         <div className={styles.buttonWrapper}>
           <button
@@ -85,7 +86,7 @@ const Edit = ({ user }) => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

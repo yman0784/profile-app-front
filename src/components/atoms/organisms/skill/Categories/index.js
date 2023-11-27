@@ -6,32 +6,20 @@ import SkillCard from "../SkillsCard";
 import Link from "next/link";
 import styles from "./index.module.css";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/atoms/layouts/Modal/Modal";
 
 const Categories = () => {
   const [categoryNames, setCategoryNames] = useState([]);
   const [responseData, setResponseData] = useState({});
-
-  // const getCategorySkills = (name) => {
-  //   switch (name) {
-  //     case "フロントエンド":
-  //       return fskills;
-  //     case "バックエンド":
-  //       return bskills;
-  //     case "インフラ":
-  //       return iskills;
-  //     default:
-  //       return [];
-  //   }
-  // };
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [fskills, setFskills] = useState([]);
   const [bskills, setBskills] = useState([]);
   const [iskills, setIskills] = useState([]);
   const [receivedCategoryId, setReceivedCategoryId] = useState([]);
   const [selectedSkills, setselectedSkills] = useState([]);
-  // const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
-  const skills = [fskills, bskills, iskills];
+  const skills = [bskills, fskills, iskills];
   const router = useRouter();
 
   const apiClient = axios.create({
@@ -48,13 +36,12 @@ const Categories = () => {
         setBskills(response.data.backskills);
         setIskills(response.data.infraskills);
         setReceivedCategoryId(response.data.category_id.id);
+        console.log(response);
 
         const categoryIds = response.data.category_id.map(
           (category) => category.id
         );
         setReceivedCategoryId(categoryIds);
-
-        console.log(response);
       })
       .catch((error) => {
         console.error("Error fetching todos:", error);
@@ -62,7 +49,6 @@ const Categories = () => {
   };
 
   const onClickAddSkill = (name) => {
-    console.log(name);
     const categoryId = (() => {
       switch (name) {
         case "フロントエンド":
@@ -76,59 +62,44 @@ const Categories = () => {
       }
     })();
 
-    // setselectedSkills(getCategorySkills(name));
-
-    // const categoryId = getCategorySkills(name)[0]?.category_id;
-    // setSelectedCategoryId(categoryId);
-    // console.log(skills);
-
     if (categoryId) {
-      router.push(`/skills/add/${categoryId}`);
+      router.push(`/skills/add/${categoryId}?categoryName=${name}`);
     }
   };
 
   useEffect(() => {
     getCategory();
-    console.log("selectedSkills changed:", selectedSkills);
-    // console.log(selectedCategoryId);
-    console.log(receivedCategoryId);
   }, []);
 
   return (
-    <div>
-      <h2>categoryテーブル一覧</h2>
-      {selectedSkills.map((a, index) => (
-        <div key={index}>
-          <p>{a[index]}</p>
-          <p>{index}</p>
-        </div>
-      ))}
-
-      {categoryNames.map((name, index) => (
-        <div
-          key={name}
-          style={{
-            border: "1px solid black",
-            margin: "20px",
-            padding: "10px",
-          }}
-        >
-          <div className={styles.categorybox}>
-            <p>{name}</p>
-            {/* <Link href={"http://localhost:8000/skills/add"}> */}
-            <button
-              onClick={() => {
-                onClickAddSkill(name);
-              }}
-            >
-              スキルを追加する
-            </button>
-            {/* </Link> */}
+    <>
+      <div className={styles.categoryContainer}>
+        {categoryNames.map((name, index) => (
+          <div
+            key={name}
+            style={{
+              border: "1px solid black",
+              margin: "20px",
+              padding: "25px",
+              borderRadius: "8px",
+            }}
+          >
+            <div className={styles.categorybox}>
+              <h2 className={styles.title}>{name}</h2>
+              <button
+                onClick={() => {
+                  onClickAddSkill(name);
+                }}
+                className={styles.button}
+              >
+                スキルを追加する
+              </button>
+            </div>
+            <SkillCard key={name} skills={skills[index]} />
           </div>
-          <SkillCard key={name} skills={skills[index]} />
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 

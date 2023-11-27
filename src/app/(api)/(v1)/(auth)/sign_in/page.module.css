@@ -2,10 +2,10 @@
   text-align: center;
   font-size: 30px;
   font-weight: 100;
-  width: 40%;
+  width: 40vw;
 }
 
-.editContainer {
+.signInContainer {
   width: 50%;
   margin: 7vh auto 10vh;
   display: flex;
@@ -13,7 +13,7 @@
   flex-direction: column;
 }
 .buttonWrapper {
-  width: 80%;
+  width: 40vw;
   display: flex;
   justify-content: center;
 }
@@ -26,13 +26,15 @@
   font-weight: lighter;
   border-radius: 5px;
 }
-.editBox {
+.signInBox {
   border: none;
   border-bottom: 2px solid #949494;
   resize: none;
   color: #212121;
+  margin-top: 3%;
 }
-.editBox:focus {
+
+.signInBox:focus {
   outline: none;
 }
 
@@ -41,7 +43,4 @@
   flex-direction: column;
   width: 80%;
   color: #757575;
-}
-.imageButtonWrapper {
-  width: 80%;
 }

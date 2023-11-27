@@ -67,7 +67,7 @@ const UserDetails = () => {
               alt="User Image"
               style={{
                 borderRadius: "50%",
-                width: "30vw",
+                width: "20vw",
                 height: "20vw",
                 margin: "auto 0",
               }}

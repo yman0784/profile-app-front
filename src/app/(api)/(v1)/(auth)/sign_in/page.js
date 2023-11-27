@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import HeaderNotSignedIn from "@/components/atoms/layouts/headers/HeaderNotSignedIn";
 import { useRouter } from "next/navigation";
+import styles from "./page.module.css";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -59,25 +60,39 @@ const Login = () => {
   return (
     <>
       <HeaderSignedIn />
-      <div className="input-area">
-        <input
-          placeholder="メールアドレス"
-          type="email"
-          id="email"
-          name="email"
-          value={inputEmail}
-          onChange={onChangeEmail}
-        ></input>
-        <input
-          placeholder="パスワード"
-          type="password"
-          id="password"
-          name="password"
-          value={inputPassword}
-          onChange={onChangePassword}
-        ></input>
-
-        <button onClick={onClickLogin}>ログイン</button>
+      <div className={styles.signInContainer}>
+        <h2 className={styles.title}>ログイン</h2>
+        <label className={styles.label}>
+          メールアドレス
+          <input
+            // placeholder="メールアドレス"
+            type="email"
+            id="email"
+            name="email"
+            value={inputEmail}
+            onChange={onChangeEmail}
+            className={styles.signInBox}
+          ></input>
+          <br></br>
+          <br></br>
+          パスワード
+          <input
+            // placeholder="パスワード"
+            type="password"
+            id="password"
+            name="password"
+            value={inputPassword}
+            onChange={onChangePassword}
+            className={styles.signInBox}
+          ></input>
+          <br></br>
+          <br></br>
+        </label>
+        <div className={styles.buttonWrapper}>
+          <button className={styles.button} onClick={onClickLogin}>
+            ログインする
+          </button>
+        </div>
         <p>{loginError ? loginError : ""}</p>
       </div>
     </>

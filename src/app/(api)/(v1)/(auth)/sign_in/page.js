@@ -44,6 +44,7 @@ const Login = () => {
         console.log(res.data.data);
         console.log(res.data.data.id);
         const id = res.data.data.id;
+        Cookies.set("num", id);
         console.log(loginMessage);
         router.push(`http://localhost:8000/users/${id}`);
         handleLoginResponse(res);

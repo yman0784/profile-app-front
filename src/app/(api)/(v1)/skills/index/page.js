@@ -14,7 +14,7 @@ const Skills = () => {
     return (
       <Auth>
         <HeaderSignedIn />
-        <Categories handleValueChange={handleValueChange} />
+        <Categories />
       </Auth>
     );
   };

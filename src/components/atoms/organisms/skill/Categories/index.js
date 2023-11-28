@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import SkillCard from "../SkillsCard";
 import Link from "next/link";
 import styles from "./index.module.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Modal from "@/components/atoms/layouts/Modal/Modal";
 
 const Categories = () => {
@@ -21,6 +21,7 @@ const Categories = () => {
 
   const skills = [bskills, fskills, iskills];
   const router = useRouter();
+  const pathname = usePathname();
 
   const apiClient = axios.create({
     withCredentials: true,
@@ -36,6 +37,7 @@ const Categories = () => {
         setBskills(response.data.backskills);
         setIskills(response.data.infraskills);
         setReceivedCategoryId(response.data.category_id.id);
+        const skills = [bskills, fskills, iskills];
         console.log(response);
 
         const categoryIds = response.data.category_id.map(
@@ -69,36 +71,39 @@ const Categories = () => {
 
   useEffect(() => {
     getCategory();
+    console.log(skills);
   }, []);
 
   return (
     <>
-      <div className={styles.categoryContainer}>
-        {categoryNames.map((name, index) => (
-          <div
-            key={name}
-            style={{
-              border: "1px solid black",
-              margin: "20px",
-              padding: "25px",
-              borderRadius: "8px",
-            }}
-          >
-            <div className={styles.categorybox}>
-              <h2 className={styles.title}>{name}</h2>
-              <button
-                onClick={() => {
-                  onClickAddSkill(name);
-                }}
-                className={styles.button}
-              >
-                スキルを追加する
-              </button>
+      {pathname.includes("skill") && (
+        <div className={styles.categoryContainer}>
+          {categoryNames.map((name, index) => (
+            <div
+              key={name}
+              style={{
+                border: "1px solid #808080",
+                margin: "20px",
+                padding: "25px",
+                borderRadius: "8px",
+              }}
+            >
+              <div className={styles.categorybox}>
+                <h2 className={styles.title}>{name}</h2>
+                <button
+                  onClick={() => {
+                    onClickAddSkill(name);
+                  }}
+                  className={styles.button}
+                >
+                  スキルを追加する
+                </button>
+              </div>
+              <SkillCard key={name} skills={skills[index]} />
             </div>
-            <SkillCard key={name} skills={skills[index]} />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

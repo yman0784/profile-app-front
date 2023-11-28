@@ -86,29 +86,87 @@ const SkillCard = ({ skills }) => {
       />
 
       <div
-        style={{ border: "1px solid black", margin: "5px", padding: "10px" }}
+        style={{
+          borderRadius: "5px",
+          border: "1px solid #ccc",
+          boxShadow: "0 4px 3px rgba(0, 0, 0, 0.3)",
+        }}
       >
-        {skills.map(
-          (skill) =>
-            !deletedSkills.includes(skill.id) && (
-              <div key={skill.id} className={styles.skillbox}>
-                <p>{skill.language}</p>
-                <select
-                  style={{ width: "20%", border: "1px solid" }}
-                  onChange={(e) => setSelectedLevel(e.target.value)}
+        <div
+          style={{
+            height: "5vh",
+            display: "flex",
+            alignItems: "flex-start",
+            borderBottom: "1px solid #ccc",
+            alignItems: "center",
+            padding: "0 3vw 0",
+          }}
+        >
+          <div style={{ width: "10%" }}>習得スキル</div>
+          <div style={{ marginLeft: "10%", width: "20%" }}>習得レベル</div>
+        </div>
+        <div style={{ overflow: "auto", maxHeight: "20vh" }}>
+          {skills.map(
+            (skill) =>
+              !deletedSkills.includes(skill.id) && (
+                <div
+                  key={skill.id}
+                  className={styles.skillbox}
+                  style={{
+                    height: "5vh",
+                    borderBottom: "1px solid #ccc",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "3vh 3vw ",
+                  }}
                 >
-                  <option value={skill.level}>{skill.level}</option>
-                  {generateOptions(skill)}
-                </select>
-                <button onClick={() => onClickSaveSkillLevel(skill)}>
-                  習得レベルを保存する
-                </button>
-                <button onClick={() => onClickSkillDelete(skill)}>
-                  スキルを削除する
-                </button>
-              </div>
-            )
-        )}
+                  <p style={{ width: "10%" }}>{skill.language}</p>
+                  <select
+                    style={{
+                      width: "20%",
+                      border: "1px solid #c4c4c4",
+                      borderRadius: "5px",
+                      color: "#757575",
+                      padding: "0.8vh 0",
+                    }}
+                    onChange={(e) => setSelectedLevel(e.target.value)}
+                  >
+                    <option value={skill.level}>{skill.level}</option>
+                    {generateOptions(skill)}
+                  </select>
+                  <button
+                    onClick={() => onClickSaveSkillLevel(skill)}
+                    style={{
+                      marginLeft: "10%",
+                      color: "#1b5678",
+                      backgroundColor: "#fff",
+                      borderRadius: "5px",
+                      outline: "none",
+                      border: "1px solid #1b5678",
+                      width: "15%",
+                      padding: "0.5vh 0",
+                    }}
+                  >
+                    習得レベルを保存する
+                  </button>
+                  <button
+                    onClick={() => onClickSkillDelete(skill)}
+                    style={{
+                      backgroundColor: "#ee6969",
+                      color: "#fff",
+                      borderRadius: "5px",
+                      outline: "none",
+                      border: "1px solid #ee6969",
+                      width: "15%",
+                      padding: "0.5vh 0",
+                    }}
+                  >
+                    スキルを削除する
+                  </button>
+                </div>
+              )
+          )}
+        </div>
       </div>
     </>
   );

@@ -6,11 +6,13 @@ import { redirect, useRouter } from "next/navigation";
 import styles from "./index.module.css";
 
 const HeaderSignedIn = () => {
+  const id = Cookies.get("num");
   const handleLogoutResponse = (res) => {
     Cookies.remove("_access_token");
     Cookies.remove("_client");
     Cookies.remove("_uid");
     Cookies.remove("token");
+    Cookies.remove("num");
 
     console.log("logout response: ", res);
   };
@@ -38,11 +40,30 @@ const HeaderSignedIn = () => {
         <div className={styles.logo}>
           <Link href="/" className={styles.a}>
             My Portfolio
-            {/* <img src="logo.png" alt="Logo" /> */}
           </Link>
         </div>
-        <div className="login-button">
-          <button onClick={onClickLogout}>ログアウト</button>
+        <div className={styles.headerRight}>
+          <div className={styles.headerLink}>
+            <Link
+              href={`http://localhost:8000/users/${id}`}
+              className={styles.a}
+            >
+              ユーザー詳細
+            </Link>
+          </div>
+          <div className={styles.headerLink}>
+            <Link
+              href={`http://localhost:8000/users/edit/${id}`}
+              className={styles.a}
+            >
+              ユーザー編集
+            </Link>
+          </div>
+          <div className={styles.buttonWrapper}>
+            <button className={styles.button} onClick={onClickLogout}>
+              ログアウト
+            </button>
+          </div>
         </div>
       </div>
     </header>

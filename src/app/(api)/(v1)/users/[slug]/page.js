@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import NotFound from "../../../../not-found";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import styles from "./page.module.css";
+import SkillDataLoader from "@/components/SkillDataLoader";
+import SkillChart from "@/components/Chart/SkillChart";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -16,6 +18,11 @@ const UserDetails = () => {
   const params = useParams();
   const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
+  const [chartSkills, setChartSkills] = useState([]);
+  const handleSkillFromChild = (skills) => {
+    setChartSkills(skills);
+    console.log(skills);
+  };
 
   const ToEditSelfIntroduction = () => {
     if (!user) {
@@ -58,6 +65,7 @@ const UserDetails = () => {
   }
   return (
     <div>
+      <SkillDataLoader onDataLoaded={handleSkillFromChild} />
       <HeaderSignedIn />
       <div className={styles.userCard}>
         <div className={styles.userContainer}>
@@ -101,6 +109,8 @@ const UserDetails = () => {
           </div>
         </div>
       </div>
+      <SkillChart skills={chartSkills} />
+      {/* <SkillChart></SkillChart> */}
     </div>
   );
 };

@@ -79,3 +79,6 @@ button:hover {
   cursor: pointer; /* マウスカーソルを手の形にする */
   opacity: 0.6; /* ボタンの透明度を60%にする */
 }
+canvas {
+  appearance: none;
+}

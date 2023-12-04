@@ -7,12 +7,12 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { usePathname } from "next/navigation";
+import { useForm } from "react-hook-form";
 
-const Edit = ({ user }) => {
+const Edit = () => {
   const [userId, setuserId] = useState("");
   const pathname = usePathname();
   const params = useParams();
-
   const [savedSelfIntroduction, setSavedSelfIntroduction] = useState(
     localStorage.getItem("selfIntroduction")
       ? localStorage.getItem("selfIntroduction")
@@ -21,9 +21,18 @@ const Edit = ({ user }) => {
   const [inputselfIntroduction, setInputselfIntroduction] = useState(
     savedSelfIntroduction
   );
-  // );
   const onChangeSelfIntroduce = (event) =>
     setInputselfIntroduction(event.target.value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onSubmit",
+    criteriaMode: "all",
+  });
+
+  // );
   const router = useRouter();
 
   // useEffect(() => {
@@ -31,11 +40,13 @@ const Edit = ({ user }) => {
   //   setSavedSelfIntroduction(storesavedSelfIntroduction || "");
   // }, []);
 
-  const onClickAddSelfIntroduction = async () => {
+  // const onClickAddSelfIntroduction = async () => {
+  const onSubmit = async () => {
     const apiClient = axios.create({
       withCredentials: true,
     });
     try {
+      console.log(inputselfIntroduction);
       const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
         self_introduction: inputselfIntroduction,
       });
@@ -58,20 +69,44 @@ const Edit = ({ user }) => {
       <HeaderSignedIn />
       <div className={styles.editContainer}>
         <h2 className={styles.title}>自己紹介を編集する</h2>
-        <label className={styles.label}>
-          自己紹介文
-          <textarea
-            className={styles.editBox}
-            onChange={onChangeSelfIntroduce}
-            defaultValue={savedSelfIntroduction}
-            rows={5}
-            cols={55}
-          />
-          200文字以上、800文字未満で入力してください
-        </label>
-        <br></br>
-        <br></br>
-        <br></br>
+        <form onChange={onChangeSelfIntroduce}>
+          <label className={styles.label}>
+            自己紹介文
+            <textarea
+              type="text"
+              id="introduction"
+              name="introduction"
+              className={styles.editBox}
+              onChange={onChangeSelfIntroduce}
+              defaultValue={savedSelfIntroduction}
+              rows={5}
+              cols={55}
+              {...register("introduction", {
+                required: {
+                  value: true,
+                  message: "自己紹介文を入力してください。",
+                },
+                minLength: {
+                  value: 8,
+                  message: "自己紹介文は8文字以上で入力してください。。",
+                },
+                maxLength: {
+                  value: 799,
+                  message: "自己紹介文は800文字未満で入力してください。",
+                },
+              })}
+            />
+            200文字以上、800文字未満で入力してください
+          </label>
+          {errors.introduction && (
+            <span className={styles.form_error}>
+              {errors.introduction.message}
+            </span>
+          )}
+          <br></br>
+          <br></br>
+          <br></br>
+        </form>
         <label className={styles.label}>アバター画像</label>
         <div className={styles.imageButtonWrapper}>
           <AddImage userId={params.slug} />
@@ -80,7 +115,8 @@ const Edit = ({ user }) => {
         <div className={styles.buttonWrapper}>
           <button
             className={styles.button}
-            onClick={onClickAddSelfIntroduction}
+            onClick={handleSubmit(onSubmit)}
+            // onSubmit={onSubmit}
           >
             自己紹介を確定する
           </button>

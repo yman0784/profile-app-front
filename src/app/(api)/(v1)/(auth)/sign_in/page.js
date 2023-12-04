@@ -4,8 +4,10 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import HeaderNotSignedIn from "@/components/atoms/layouts/headers/HeaderNotSignedIn";
+import Toast from "@/components/atoms/Toast/index";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -13,7 +15,16 @@ const Login = () => {
   const onChangeEmail = (event) => setInputEmail(event.target.value);
   const onChangePassword = (event) => setInputPassword(event.target.value);
   const router = useRouter();
-  const [loginError, setLoginError] = useState();
+  const [loginError, setLoginError] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    criteriaMode: "all",
+  });
 
   const handleLoginResponse = (res) => {
     Cookies.set("_access_token", res.headers["access-token"]);
@@ -22,14 +33,14 @@ const Login = () => {
     console.log("login response: ", res);
   };
 
-  const onClickLogin = async () => {
+  const onSubmit = async (data) => {
     const apiClient = axios.create({
       withCredentials: true,
     });
 
     const Params = {
-      email: inputEmail,
-      password: inputPassword,
+      email: data.email,
+      password: data.password,
     };
 
     try {
@@ -53,48 +64,83 @@ const Login = () => {
       setInputPassword("");
     } catch (error) {
       // setLoginError(error.response.data);
+      setLoginError(
+        "ログインに失敗しました。メールアドレスかパスワードが間違っています。"
+      );
+      setShowToast(true);
       console.error("エラーレスポンス:", error.response);
-      // console.log(loginError);
+      console.log(loginError);
+      return loginError;
     }
   };
 
   return (
     <>
       <HeaderSignedIn />
+      <Toast showToast={showToast} message={loginError} />
       <div className={styles.signInContainer}>
         <h2 className={styles.title}>ログイン</h2>
-        <label className={styles.label}>
-          メールアドレス
-          <input
-            // placeholder="メールアドレス"
-            type="email"
-            id="email"
-            name="email"
-            value={inputEmail}
-            onChange={onChangeEmail}
-            className={styles.signInBox}
-          ></input>
-          <br></br>
-          <br></br>
-          パスワード
-          <input
-            // placeholder="パスワード"
-            type="password"
-            id="password"
-            name="password"
-            value={inputPassword}
-            onChange={onChangePassword}
-            className={styles.signInBox}
-          ></input>
-          <br></br>
-          <br></br>
-        </label>
-        <div className={styles.buttonWrapper}>
-          <button className={styles.button} onClick={onClickLogin}>
-            ログインする
-          </button>
-        </div>
-        <p>{loginError ? loginError : ""}</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label className={styles.label}>
+            メールアドレス
+            <input
+              // placeholder="メールアドレス"
+              type="email"
+              id="email"
+              name="email"
+              // value={inputEmail}
+              // onChange={onChangeEmail}
+              className={styles.signInBox}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "メールアドレスを入力してください。",
+                },
+                pattern: {
+                  value: /^[a-z0-9.]+@[a-z]+\.[a-z]+$/,
+                  message: "メールアドレスの形式で入力してください。",
+                },
+              })}
+            ></input>
+            {errors.email && (
+              <span className={styles.form_error}>{errors.email.message}</span>
+            )}
+            <br></br>
+            <br></br>
+            パスワード
+            <input
+              // placeholder="パスワード"
+              type="password"
+              id="password"
+              name="password"
+              // value={inputPassword}
+              // onChange={onChangePassword}
+              className={styles.signInBox}
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "パスワードを入力してください。",
+                },
+                minLength: {
+                  value: 8,
+                  message: "パスワードは8文字以上です。",
+                },
+              })}
+            ></input>
+            {errors.password && (
+              <span className={styles.form_error}>
+                {errors.password.message}
+              </span>
+            )}
+            <br></br>
+            <br></br>
+          </label>
+          <div className={styles.buttonWrapper}>
+            <button className={styles.button} onSubmit={onSubmit}>
+              ログインする
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

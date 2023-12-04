@@ -44,3 +44,6 @@
   width: 80%;
   color: #757575;
 }
+.form_error {
+  color: red;
+}

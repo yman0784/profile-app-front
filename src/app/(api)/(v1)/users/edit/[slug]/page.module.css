@@ -45,3 +45,7 @@
 .imageButtonWrapper {
   width: 80%;
 }
+
+.form_error {
+  color: red;
+}

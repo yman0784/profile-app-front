@@ -1,0 +1,16 @@
+.toast {
+  position: fixed;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff5555; /* 赤っぽい色 */
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
+}

@@ -143,7 +143,7 @@ const SkillCard = ({ skills }) => {
                       borderRadius: "5px",
                       outline: "none",
                       border: "1px solid #1b5678",
-                      width: "15%",
+                      width: "18%",
                       padding: "0.5vh 0",
                     }}
                   >
@@ -157,7 +157,7 @@ const SkillCard = ({ skills }) => {
                       borderRadius: "5px",
                       outline: "none",
                       border: "1px solid #ee6969",
-                      width: "15%",
+                      width: "18%",
                       padding: "0.5vh 0",
                     }}
                   >

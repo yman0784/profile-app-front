@@ -10,15 +10,22 @@ import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import styles from "./page.module.css";
 import SkillDataLoader from "@/components/SkillDataLoader";
 import SkillChart from "@/components/Chart/SkillChart";
+import SkillChartCategory from "@/components/Chart/SkillChartCategory";
+import SelectBox from "@/components/SelectBox";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedValue, setSelectedValue] = useState(0);
   const pathname = usePathname();
   const params = useParams();
   const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
   const [chartSkills, setChartSkills] = useState([]);
+  const nowDate = new Date();
+  const nowMonth = nowDate.getMonth() + 1;
+  const lastMonth = ((nowDate.getMonth() + 11) % 12) + 1;
+  const twoMonthsAgo = ((nowDate.getMonth() + 10) % 12) + 1;
   const handleSkillFromChild = (skills) => {
     setChartSkills(skills);
     console.log(skills);
@@ -31,6 +38,11 @@ const UserDetails = () => {
     }
     localStorage.setItem("selfIntroduction", user.self_introduction);
     router.push(`http://localhost:8000/users/edit/${params.slug}`);
+  };
+
+  const handleSelectChange = (selectedValue) => {
+    console.log("Selected value in parent component:", selectedValue);
+    setSelectedValue(selectedValue);
   };
 
   const ToSkillIndex = () => {
@@ -54,6 +66,9 @@ const UserDetails = () => {
       }
     };
     fetchUserData();
+    console.log(nowMonth);
+    console.log(lastMonth);
+    console.log(twoMonthsAgo);
   }, [pathname]);
 
   if (loading) {
@@ -106,11 +121,61 @@ const UserDetails = () => {
                 スキルを編集する
               </button>
             </div>
+            <div>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <SelectBox onSelectChange={handleSelectChange} />
+              </div>
+              <br />
+            </div>
           </div>
         </div>
       </div>
-      <SkillChart skills={chartSkills} />
-      {/* <SkillChart></SkillChart> */}
+      <div
+        className="chartWrapper"
+        style={{
+          // width: "60%",
+          height: "50%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ width: "30%", height: "500px" }}>
+          <SkillChart
+            skills={chartSkills}
+            className={styles.chartBox}
+            month={twoMonthsAgo}
+            index={selectedValue}
+            isLeft={true}
+          />
+        </div>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <SkillChart
+            skills={chartSkills}
+            className={styles.chartBox}
+            month={lastMonth}
+            index={selectedValue}
+            isLeft={false}
+          />
+        </div>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <SkillChart
+            skills={chartSkills}
+            className={styles.chartBox}
+            index={selectedValue}
+            month={nowMonth}
+            isLeft={false}
+          />
+        </div>
+        {/* <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <SkillChartCategory
+            skills={chartSkills}
+            className={styles.chartBox}
+            index={selectedValue}
+            month={nowMonth}
+            isLeft={false}
+          />
+        </div> */}
+      </div>
     </div>
   );
 };

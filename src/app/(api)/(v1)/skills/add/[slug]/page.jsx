@@ -7,16 +7,24 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import styles from "./page.module.css";
+import { useForm } from "react-hook-form";
 
 const Skills = (props) => {
   const [inputLanguage, setInputLanguage] = useState("");
   const [inputLevel, setInputLevel] = useState("");
   const [show, setShow] = useState(false);
+  const [languageError, setLanguageError] = useState("");
 
   const router = useRouter();
   const { params } = props;
   const { slug } = params;
   const searchParams = useSearchParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onchangeLanguage = (event) => {
     setInputLanguage(event.target.value);
@@ -68,6 +76,9 @@ const Skills = (props) => {
       setInputLevel("");
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
+      const languageError = error.response.data.language;
+      console.log(error.response.data.language);
+      setLanguageError(languageError);
     }
   };
 
@@ -86,6 +97,11 @@ const Skills = (props) => {
               onChange={onchangeLanguage}
               className={styles.skillEditBox}
             ></input>
+            {errors.data && (
+              <span className={styles.form_error}>
+                {errors.data.language[0]}
+              </span>
+            )}
             <br></br>
             習得レベル
             <div className={styles.skillEditBoxWrapper}>

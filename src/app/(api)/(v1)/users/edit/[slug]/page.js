@@ -42,12 +42,6 @@ const Edit = () => {
   // );
   const router = useRouter();
 
-  useEffect(() => {
-    const getUserfromLocalStorage = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
-  }, []);
-
   // const onClickAddSelfIntroduction = async () => {
   const onSubmit = async () => {
     const apiClient = axios.create({

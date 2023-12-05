@@ -1,0 +1,40 @@
+.header {
+  background-color: #1b5678;
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  justify-content: space-between;
+}
+.logo {
+  font-size: 25px;
+}
+.a {
+  text-decoration: none;
+  color: white;
+}
+.headerRight {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+}
+
+.headerLink {
+  margin-right: 5%;
+}
+
+.buttonWrapper {
+  height: 50%;
+  width: 40%;
+}
+.button {
+  border-radius: 5px;
+  background-color: #fff;
+  height: 100%;
+  width: 75%;
+  font-size: small;
+}

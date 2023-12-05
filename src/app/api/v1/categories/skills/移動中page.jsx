@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
+import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
+import Categories from "@/components/atoms/organisms/skill/CategoryCard";
 
 const Skills = () => {
   const [fskills, setFrontskills] = useState([]);
   const [bskills, setBackskills] = useState([]);
   const [iskills, setInfraskills] = useState([]);
+  const [categoryNames, setCategoryNames] = useState([]);
 
   const apiClient = axios.create({
     withCredentials: true,
@@ -16,19 +20,44 @@ const Skills = () => {
     apiClient
       .get("http://localhost:3000/api/v1/skills")
       .then((response) => {
-        console.log(response);
         setFrontskills(response.data.frontskills);
         setBackskills(response.data.backskills);
         setInfraskills(response.data.infraskills);
-        // console.log(currentUser);
+        setCategoryNames(response.data.category_names);
+        console.log(response.data);
+        console.log(response.data.category_names);
+        console.log(bskills);
+        console.log(categoryNames);
       })
       .catch((error) => {
         console.error("Error fetching todos:", error);
       });
   };
 
+  // const categoriesName = () => {
+  //   apiClient
+  //     .get("http://localhost:3000/api/v1/skills")
+  //     .then((response) => {
+  //       setCategoryNames({
+  //         front: response.data.frontskillsname,
+  //         back: response.data.backskillsname,
+  //         infra: response.data.infraskillsname,
+  //       });
+  //       console.log(categoryNames);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching todos:", error);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   getSkills();
+  // }, []);
+
   return (
     <>
+      <HeaderSignedIn />
+      <Categories categoryNames={categoryNames} />
       <h1>Test</h1>
       <button onClick={getSkills}>skill一覧</button>
       <ul>
@@ -56,6 +85,14 @@ const Skills = () => {
             title:{skill.language}
             <br />
             level:{skill.level}
+            <br />
+          </li>
+        ))}
+        {categoryNames.map((name, index) => (
+          <li key={name}>
+            title:{name}
+            <br />
+            level:{name}
             <br />
           </li>
         ))}

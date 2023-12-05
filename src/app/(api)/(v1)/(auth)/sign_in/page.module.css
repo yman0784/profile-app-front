@@ -1,0 +1,49 @@
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 100;
+  width: 40vw;
+}
+
+.signInContainer {
+  width: 50%;
+  margin: 7vh auto 10vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.buttonWrapper {
+  width: 40vw;
+  display: flex;
+  justify-content: center;
+}
+.button {
+  background-color: #1b5678;
+  color: #fff;
+  width: 50%;
+  height: 5vh;
+  font-size: large;
+  font-weight: lighter;
+  border-radius: 5px;
+}
+.signInBox {
+  border: none;
+  border-bottom: 2px solid #949494;
+  resize: none;
+  color: #212121;
+  margin-top: 3%;
+}
+
+.signInBox:focus {
+  outline: none;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #757575;
+}
+.form_error {
+  color: red;
+}

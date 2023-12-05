@@ -12,7 +12,7 @@ import SkillDataLoader from "@/components/SkillDataLoader";
 import DemoChart from "@/components/Chart/DemoChart";
 import SkillChartCategory from "@/components/Chart/SkillChartCategory";
 import SelectBox from "@/components/SelectBox";
-import Footer from "@/components/atoms/layouts/Footer/Footer";
+import Footer from "../../../../../components/atoms/layouts/Footer/Footer";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);

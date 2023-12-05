@@ -1,3 +1,5 @@
+"use client"
+
 import { redirect, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useLayoutEffect } from "react";

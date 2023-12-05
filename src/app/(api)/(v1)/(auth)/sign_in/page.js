@@ -13,10 +13,10 @@ import Footer from "@/components/atoms/layouts/Footer/Footer";
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setInputEmail(event.target.value);
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setInputPassword(event.target.value);
+  // const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) =>
+  //   setInputEmail(event.target.value);
+  // const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) =>
+  //   setInputPassword(event.target.value);
   const router = useRouter();
   const [loginError, setLoginError] = useState("");
   const [showToast, setShowToast] = useState(false);

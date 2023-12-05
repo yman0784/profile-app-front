@@ -106,54 +106,54 @@ const UserDetails = () => {
         <Toast showToast={showToast} message={loginMessage} color={"#55c500"} />
       )} */}
       <div className={styles.userCard}>
-        {/* <div className={styles.userContainer}> */}
-        {imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={imageUrl}
-            alt="User Image"
-            style={{
-              borderRadius: "50%",
-              width: "20vw",
-              height: "20vw",
-              margin: "auto 0",
-            }}
-          />
-        )}
-        <div className={styles.userSentence}>
-          {/* <div>
+        <div className={styles.userContainer}>
+          {imageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={imageUrl}
+              alt="User Image"
+              style={{
+                borderRadius: "50%",
+                width: "20vw",
+                height: "20vw",
+                margin: "auto 0",
+              }}
+            />
+          )}
+          <div className={styles.userSentence}>
+            <div>
               <h2 className={styles.title}>自己紹介</h2>
-            </div> */}
-          {/* <p className={styles.userIntroduction}>{user.self_introduction}</p> */}
-          <div>
-            {/* <button
+            </div>
+            <p className={styles.userIntroduction}>{user.self_introduction}</p>
+            <div>
+              <button
                 className={styles.button}
                 onClick={ToEditSelfIntroduction}
                 user={user}
               >
                 自己紹介を編集する
-              </button> */}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      {/* <div></div> */}
-      <div className={styles.skillsContainer}>
-        {/* <div> */}
-        {/* <h2 className={styles.skillTitle}>スキルチャート</h2>
+        <div></div>
+        <div className={styles.skillsContainer}>
+          <div>
+            <h2 className={styles.skillTitle}>スキルチャート</h2>
             <div className={styles.skillButtonwrapper}>
               <button className={styles.button} onClick={ToSkillIndex}>
                 スキルを編集する
               </button>
-            </div> */}
-        {/* <div>
+            </div>
+            <div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <SelectBox onSelectChange={handleSelectChange} />
               </div>
               <br />
-            </div> */}
-        {/* </div> */}
+            </div>
+          </div>
+        </div>
       </div>
-      {/* </div> */}
       <div
         className="chartWrapper"
         style={{
@@ -163,7 +163,7 @@ const UserDetails = () => {
           justifyContent: "center",
         }}
       >
-        {/* <div style={{ width: "30%", height: "500px" }}>
+        <div style={{ width: "30%", height: "500px" }}>
           <SkillChart
             skills={chartSkills}
             className={styles.chartBox}
@@ -189,7 +189,7 @@ const UserDetails = () => {
             month={nowMonth}
             isLeft={false}
           />
-        </div> */}
+        </div>
         {/* <div style={{ width: "30%", height: "500px", display: "flex" }}>
           <SkillChartCategory
             skills={chartSkills}

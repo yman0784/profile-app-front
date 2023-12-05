@@ -26,10 +26,6 @@ const Edit = () => {
       ? searchParams.get("selfIntroduction")
       : ""
   );
-  //   localStorage.getItem("selfIntroduction")
-  //     ? localStorage.getItem("selfIntroduction")
-  //     : ""
-  // );
 
   const [inputselfIntroduction, setInputselfIntroduction] = useState();
   const onChangeSelfIntroduce = (event) =>
@@ -45,11 +41,6 @@ const Edit = () => {
 
   // );
   const router = useRouter();
-
-  // useEffect(() => {
-  //   const storesavedSelfIntroduction = localStorage.getItem("selfIntroduction");
-  //   setSavedSelfIntroduction(storesavedSelfIntroduction || "");
-  // }, []);
 
   // const onClickAddSelfIntroduction = async () => {
   const onSubmit = async () => {

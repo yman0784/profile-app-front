@@ -1,97 +1,165 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import HeaderNotSignedIn from "@/components/atoms/layouts/headers/HeaderNotSignedIn";
+"use client";
 
-export default function Home() {
+import { useParams, usePathname } from "next/navigation";
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import NotFound from "../../../../not-found";
+import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
+import styles from "./page.module.css";
+import SkillDataLoader from "@/components/SkillDataLoader";
+import DemoChart from "@/components/Chart/DemoChart";
+import SkillChartCategory from "@/components/Chart/SkillChartCategory";
+import SelectBox from "@/components/SelectBox";
+import Footer from "@/components/atoms/layouts/Footer/Footer";
+
+const UserDetails = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedValue, setSelectedValue] = useState(0);
+  const pathname = usePathname();
+  const params = useParams();
+  const [imageUrl, setImageUrl] = useState("");
+  const router = useRouter();
+  const [chartSkills, setChartSkills] = useState([]);
+  const nowDate = new Date();
+  const nowMonth = nowDate.getMonth() + 1;
+  const lastMonth = ((nowDate.getMonth() + 11) % 12) + 1;
+  const twoMonthsAgo = ((nowDate.getMonth() + 10) % 12) + 1;
+
+  // const handleSkillFromChild = (skills) => {
+  //   setChartSkills(skills);
+  //   console.log(skills);
+  // };
+
+  // const ToEditSelfIntroduction = () => {
+  //   if (!user) {
+  //     console.error("User is null");
+  //     return;
+  //   }
+  //   localStorage.setItem("selfIntroduction", user.self_introduction);
+  //   router.push(`http://localhost:8000/users/edit/${params.slug}`);
+  // };
+
+  // const handleSelectChange = (selectedValue) => {
+  //   console.log("Selected value in parent component:", selectedValue);
+  //   setSelectedValue(selectedValue);
+  // };
+
+  // const ToSkillIndex = () => {
+  //   router.push("http://localhost:8000/skills/index");
+  // };
+
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const apiClient = axios.create({
+  //         withCredentials: true,
+  //       });
+  //       const response = await apiClient.get(
+  //         `http://localhost:3000/api/v1${pathname}`
+  //       );
+  //       setUser(response.data.user);
+  //       setLoading(false);
+  //       setImageUrl(response.data.image);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+  //   fetchUserData();
+  //   console.log(nowMonth);
+  //   console.log(lastMonth);
+  //   console.log(twoMonthsAgo);
+  // }, [pathname]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (!user) {
+  //   return <NotFound />;
+  // }
   return (
-    <main className={styles.main}>
-      <HeaderNotSignedIn />
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+      <HeaderSignedIn />
+      <div className={styles.userCard}>
+        <div className={styles.userContainer}>
+          <img
+            src={imageUrl}
+            // alt="User Image"
+            style={{
+              borderRadius: "50%",
+              width: "300px",
+              height: "300px",
+              margin: "auto 0",
+              backgroundColor: "#c4c4c4",
+              objectFit: "cover",
+            }}
+          />
+
+          <div className={styles.userSentence}>
+            <div>
+              <h2 className={styles.title}>自己紹介</h2>
+            </div>
+            <p className={styles.userIntroduction}>
+              ログインして、自己紹介文と画像を登録しましょう！
+            </p>
+            {/* <div>
+              <button className={styles.button} user={user}>
+                自己紹介を編集する
+              </button>
+            </div> */}
+          </div>
+        </div>
+        <div></div>
+        <div className={styles.skillsContainer}>
+          <div>
+            <h2 className={styles.skillTitle}>スキルチャート</h2>
+            {/* <div className={styles.skillButtonwrapper}>
+              <button className={styles.button}>スキルを編集する</button>
+            </div> */}
+            <div>
+              <div style={{ display: "flex", justifyContent: "center" }}></div>
+              <br />
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div
+        className="chartWrapper"
+        style={{
+          // width: "60%",
+          height: "50%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <DemoChart
+            className={styles.chartBox}
+            month={twoMonthsAgo}
+            isLeft={true}
+          />
+        </div>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <DemoChart
+            className={styles.chartBox}
+            month={lastMonth}
+            isLeft={false}
+          />
+        </div>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <DemoChart
+            className={styles.chartBox}
+            month={nowMonth}
+            isLeft={false}
+          />
+        </div>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <Footer />
+    </div>
   );
-}
+};
+
+export default UserDetails;

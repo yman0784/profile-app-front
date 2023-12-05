@@ -31,7 +31,9 @@ const HeaderSignedIn = () => {
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
     }
-    await router.push("http://localhost:8000/sign_in");
+    await router.push(
+      "http://localhost:8000/sign_in?message=ログアウトしました"
+    );
   };
 
   return (

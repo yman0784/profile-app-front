@@ -31,6 +31,7 @@
   border-bottom: 2px solid #949494;
   resize: none;
   color: #212121;
+  margin: 0 auto;
 }
 .editBox:focus {
   outline: none;
@@ -39,11 +40,12 @@
 .label {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 65%;
   color: #757575;
 }
 .imageButtonWrapper {
-  width: 80%;
+  width: 65%;
+  padding: 0 auto;
 }
 
 .form_error {

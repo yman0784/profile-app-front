@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 
-const Toast = ({ showToast, message }) => {
+const Toast = ({ showToast, message, color }) => {
   const [visible, setVisible] = useState(false);
+  const [initialRender, setInitialRender] = useState(true);
 
   useEffect(() => {
-    if (showToast) {
+    if (showToast && !initialRender) {
       setVisible(true);
 
       const timeoutId = setTimeout(() => {
@@ -16,7 +17,9 @@ const Toast = ({ showToast, message }) => {
         clearTimeout(timeoutId);
       };
     }
-  }, [showToast]);
+
+    setInitialRender(false);
+  }, [showToast, initialRender]);
 
   const handleClick = () => {
     setVisible(false);
@@ -40,6 +43,7 @@ const Toast = ({ showToast, message }) => {
     <div
       className={`${styles.toast} ${visible ? styles.show : ""}`}
       onClick={handleClick}
+      style={{ backgroundColor: `${color}` }}
     >
       {message}
     </div>

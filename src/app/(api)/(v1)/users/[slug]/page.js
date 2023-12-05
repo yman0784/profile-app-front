@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -12,6 +12,8 @@ import SkillDataLoader from "@/components/SkillDataLoader";
 import SkillChart from "@/components/Chart/SkillChart";
 import SkillChartCategory from "@/components/Chart/SkillChartCategory";
 import SelectBox from "@/components/SelectBox";
+import Toast from "@/components/atoms/Toast";
+import Footer from "@/components/atoms/layouts/Footer/Footer";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -26,17 +28,29 @@ const UserDetails = () => {
   const nowMonth = nowDate.getMonth() + 1;
   const lastMonth = ((nowDate.getMonth() + 11) % 12) + 1;
   const twoMonthsAgo = ((nowDate.getMonth() + 10) % 12) + 1;
+  const [showToast, setShowToast] = useState(false);
+  const [loginMessage, setLoginMessage] = useState("");
+  const searchParams = useSearchParams();
+
   const handleSkillFromChild = (skills) => {
     setChartSkills(skills);
     console.log(skills);
   };
+
+  useEffect(() => {
+    setShowToast(true);
+    setLoginMessage(searchParams.get("message"));
+  }, [searchParams.get("message")]);
 
   const ToEditSelfIntroduction = () => {
     if (!user) {
       console.error("User is null");
       return;
     }
-    localStorage.setItem("selfIntroduction", user.self_introduction);
+    localStorage.setItem(
+      "selfIntroduction",
+      user.self_introduction ? user.self_introduction : ""
+    );
     router.push(`http://localhost:8000/users/edit/${params.slug}`);
   };
 
@@ -79,9 +93,14 @@ const UserDetails = () => {
     return <NotFound />;
   }
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <SkillDataLoader onDataLoaded={handleSkillFromChild} />
       <HeaderSignedIn />
+      {loginMessage === null ? (
+        ""
+      ) : (
+        <Toast showToast={showToast} message={loginMessage} color={"#55c500"} />
+      )}
       <div className={styles.userCard}>
         <div className={styles.userContainer}>
           {imageUrl && (
@@ -143,8 +162,8 @@ const UserDetails = () => {
           <SkillChart
             skills={chartSkills}
             className={styles.chartBox}
-            month={twoMonthsAgo}
             index={selectedValue}
+            month={twoMonthsAgo}
             isLeft={true}
           />
         </div>
@@ -152,8 +171,8 @@ const UserDetails = () => {
           <SkillChart
             skills={chartSkills}
             className={styles.chartBox}
-            month={lastMonth}
             index={selectedValue}
+            month={lastMonth}
             isLeft={false}
           />
         </div>
@@ -176,6 +195,7 @@ const UserDetails = () => {
           />
         </div> */}
       </div>
+      <Footer />
     </div>
   );
 };

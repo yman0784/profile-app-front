@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { usePathname } from "next/navigation";
 import { useForm } from "react-hook-form";
+import Footer from "@/components/atoms/layouts/Footer/Footer";
 
 const Edit = () => {
   const [userId, setuserId] = useState("");
@@ -65,51 +66,55 @@ const Edit = () => {
   };
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <HeaderSignedIn />
       <div className={styles.editContainer}>
         <h2 className={styles.title}>自己紹介を編集する</h2>
-        <form onChange={onChangeSelfIntroduce}>
-          <label className={styles.label}>
-            自己紹介文
-            <textarea
-              type="text"
-              id="introduction"
-              name="introduction"
-              className={styles.editBox}
-              onChange={onChangeSelfIntroduce}
-              defaultValue={savedSelfIntroduction}
-              rows={5}
-              cols={55}
-              {...register("introduction", {
-                required: {
-                  value: true,
-                  message: "自己紹介文を入力してください。",
-                },
-                minLength: {
-                  value: 8,
-                  message: "自己紹介文は8文字以上で入力してください。。",
-                },
-                maxLength: {
-                  value: 799,
-                  message: "自己紹介文は800文字未満で入力してください。",
-                },
-              })}
-            />
-            200文字以上、800文字未満で入力してください
-          </label>
-          {errors.introduction && (
-            <span className={styles.form_error}>
-              {errors.introduction.message}
-            </span>
-          )}
-          <br></br>
-          <br></br>
-          <br></br>
-        </form>
-        <label className={styles.label}>アバター画像</label>
-        <div className={styles.imageButtonWrapper}>
-          <AddImage userId={params.slug} />
+        <div>
+          <form onChange={onChangeSelfIntroduce}>
+            <label className={styles.label}>
+              自己紹介文
+              <textarea
+                type="text"
+                id="introduction"
+                name="introduction"
+                className={styles.editBox}
+                onChange={onChangeSelfIntroduce}
+                defaultValue={savedSelfIntroduction}
+                rows={5}
+                cols={60}
+                {...register("introduction", {
+                  required: {
+                    value: true,
+                    message: "自己紹介文を入力してください。",
+                  },
+                  minLength: {
+                    value: 200,
+                    message: "自己紹介文は200文字以上で入力してください。。",
+                  },
+                  maxLength: {
+                    value: 799,
+                    message: "自己紹介文は800文字未満で入力してください。",
+                  },
+                })}
+              />
+              200文字以上、800文字未満で入力してください
+            </label>
+            {errors.introduction && (
+              <span className={styles.form_error}>
+                {errors.introduction.message}
+              </span>
+            )}
+            <br></br>
+            <br></br>
+            <br></br>
+          </form>
+          <label className={styles.label}>アバター画像</label>
+          <div className={styles.imageButtonWrapper}>
+            <AddImage userId={params.slug} />
+          </div>
         </div>
         <br></br>
         <div className={styles.buttonWrapper}>
@@ -122,7 +127,8 @@ const Edit = () => {
           </button>
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 

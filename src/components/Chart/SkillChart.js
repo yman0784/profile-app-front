@@ -20,6 +20,37 @@ ChartJS.register(
 );
 
 const SkillChart = ({ skills, index, month, isLeft }) => {
+  const getEnglishMonth = (month) => {
+    switch (month) {
+      case 1:
+        return "January";
+      case 2:
+        return "February";
+      case 3:
+        return "March";
+      case 4:
+        return "April";
+      case 5:
+        return "May";
+      case 6:
+        return "June";
+      case 7:
+        return "July";
+      case 8:
+        return "August";
+      case 9:
+        return "September";
+      case 10:
+        return "October";
+      case 11:
+        return "November";
+      case 12:
+        return "December";
+      default:
+        return ""; // Handle invalid month numbers
+    }
+  };
+
   const renderChart = () => {
     const languageData = skills.map((skillSet) =>
       skillSet.map((skill) => {
@@ -94,8 +125,8 @@ const SkillChart = ({ skills, index, month, isLeft }) => {
         x: {
           type: "category",
           labels: [""],
-          barPercentage: 0.6, // バーの幅の割合（0.5はバーの幅がデフォルトの50%になる）
-          categoryPercentage: 0.8, // カテゴリーの間隔の割合（0.5はカテゴリーの間隔がデフォルトの50%になる）
+          barPercentage: 0.3, // バーの幅の割合を狭く設定
+          categoryPercentage: 0.5, // カテゴリーの間隔の割合を狭く設定
         },
         y: {
           display: true, // y軸の値を表示または非表示にする
@@ -111,9 +142,11 @@ const SkillChart = ({ skills, index, month, isLeft }) => {
       plugins: {
         title: {
           display: true,
-          text: `${month}月`, // x軸のタイトル
+          text: getEnglishMonth(month), // x軸のタイトル
           position: "bottom", // タイトルの位置を下に設定
         },
+        // titleSpacing: "1",
+        titleMarginBottom: 3,
       },
       legend: {
         display: false, // 凡例を非表示にする
@@ -134,7 +167,7 @@ const SkillChart = ({ skills, index, month, isLeft }) => {
           width: "100%",
           height: "100%",
           marginRight: "-20px",
-          padding: "-20px",
+          padding: "-10px",
         }}
       />
     );

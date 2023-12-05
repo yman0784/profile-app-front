@@ -5,9 +5,10 @@ import Cookies from "js-cookie";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import HeaderNotSignedIn from "@/components/atoms/layouts/headers/HeaderNotSignedIn";
 import Toast from "@/components/atoms/Toast/index";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { useForm } from "react-hook-form";
+import Footer from "@/components/atoms/layouts/Footer/Footer";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -17,6 +18,8 @@ const Login = () => {
   const router = useRouter();
   const [loginError, setLoginError] = useState("");
   const [showToast, setShowToast] = useState(false);
+  const searchParams = useSearchParams();
+  const [logoutMessage, setLogoutMessage] = useState("");
 
   const {
     register,
@@ -26,11 +29,17 @@ const Login = () => {
     criteriaMode: "all",
   });
 
+  useEffect(() => {
+    setShowToast(true);
+    setLogoutMessage(searchParams.get("message"));
+  }, [searchParams.get("message")]);
+
   const handleLoginResponse = (res) => {
+    console.log("login response: ", res);
+    console.log("login response: ", res.headers);
     Cookies.set("_access_token", res.headers["access-token"]);
     Cookies.set("_client", res.headers["client"]);
     Cookies.set("_uid", res.headers["uid"]);
-    console.log("login response: ", res);
   };
 
   const onSubmit = async (data) => {
@@ -57,7 +66,9 @@ const Login = () => {
         const id = res.data.data.id;
         Cookies.set("num", id);
         console.log(loginMessage);
-        router.push(`http://localhost:8000/users/${id}`);
+        router.push(
+          `http://localhost:8000/users/${id}?message=ログインしました`
+        );
         handleLoginResponse(res);
       }
       setInputEmail("");
@@ -75,9 +86,19 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <HeaderSignedIn />
-      <Toast showToast={showToast} message={loginError} />
+      {logoutMessage === null ? (
+        ""
+      ) : (
+        <Toast
+          showToast={showToast}
+          message={logoutMessage}
+          color={"#c53030"}
+        />
+      )}
       <div className={styles.signInContainer}>
         <h2 className={styles.title}>ログイン</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -142,7 +163,8 @@ const Login = () => {
           </div>
         </form>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 

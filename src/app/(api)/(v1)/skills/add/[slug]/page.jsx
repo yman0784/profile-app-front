@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import styles from "./page.module.css";
 import { useForm } from "react-hook-form";
+import Footer from "../../../../../../components/atoms/layouts/Footer/Footer";
 
 const Skills = (props) => {
   const [inputLanguage, setInputLanguage] = useState("");
@@ -127,6 +128,7 @@ const Skills = (props) => {
       <div>
         <HeaderSignedIn />
         {renderSkillForm()}
+        <Footer />
       </div>
     </Auth>
   );

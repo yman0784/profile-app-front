@@ -47,7 +47,7 @@ const AddImage = (userId) => {
   return (
     <div
       style={{
-        width: "40%",
+        width: "60%",
       }}
     >
       <input

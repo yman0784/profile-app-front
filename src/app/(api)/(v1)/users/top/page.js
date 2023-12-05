@@ -12,6 +12,7 @@ import SkillDataLoader from "@/components/SkillDataLoader";
 import DemoChart from "@/components/Chart/DemoChart";
 import SkillChartCategory from "@/components/Chart/SkillChartCategory";
 import SelectBox from "@/components/SelectBox";
+import Footer from "../../../../../components/atoms/layouts/Footer/Footer";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -26,6 +27,7 @@ const UserDetails = () => {
   const nowMonth = nowDate.getMonth() + 1;
   const lastMonth = ((nowDate.getMonth() + 11) % 12) + 1;
   const twoMonthsAgo = ((nowDate.getMonth() + 10) % 12) + 1;
+
   // const handleSkillFromChild = (skills) => {
   //   setChartSkills(skills);
   //   console.log(skills);
@@ -88,10 +90,11 @@ const UserDetails = () => {
             // alt="User Image"
             style={{
               borderRadius: "50%",
-              width: "20vw",
-              height: "20vw",
+              width: "300px",
+              height: "300px",
               margin: "auto 0",
               backgroundColor: "#c4c4c4",
+              objectFit: "cover",
             }}
           />
 
@@ -132,15 +135,29 @@ const UserDetails = () => {
           justifyContent: "center",
         }}
       >
-        <div style={{ width: "30%", height: "500px" }}>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
           <DemoChart
             className={styles.chartBox}
             month={twoMonthsAgo}
-            index={selectedValue}
             isLeft={true}
           />
         </div>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <DemoChart
+            className={styles.chartBox}
+            month={lastMonth}
+            isLeft={false}
+          />
+        </div>
+        <div style={{ width: "30%", height: "500px", display: "flex" }}>
+          <DemoChart
+            className={styles.chartBox}
+            month={nowMonth}
+            isLeft={false}
+          />
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

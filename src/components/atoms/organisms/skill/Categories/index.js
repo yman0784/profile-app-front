@@ -75,7 +75,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <>
+    <div>
       {pathname.includes("skill") && (
         <div className={styles.categoryContainer}>
           {categoryNames.map((name, index) => (
@@ -104,7 +104,7 @@ const Categories = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

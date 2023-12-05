@@ -89,7 +89,7 @@ const Login = () => {
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
-      <HeaderSignedIn />
+      <HeaderNotSignedIn />
       {logoutMessage === null ? (
         ""
       ) : (

@@ -3,7 +3,7 @@ import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div style={{ marginTop: "auto" }}>
       <div className={styles.footer}>
         <p style={{ color: "white" }}>user name’s portfolio site</p>
       </div>

@@ -1,26 +1,12 @@
-.gamingbackgroundcolor {
-  animation: gaming-background-color 5s linear infinite;
+.header {
+  background-color: #1b5678;
   width: 100%;
-  height: 5vh;
+  height: 8vh;
   display: flex;
   align-items: center;
   padding-left: 5vw;
   padding-right: 5vw;
   justify-content: space-between;
-}
-@keyframes gaming-background-color {
-  0% {
-    background-color: #1b5678;
-  }
-  33% {
-    background-color: yellow;
-  }
-  66% {
-    background-color: Cyan;
-  }
-  100% {
-    background-color: #1b5678;
-  }
 }
 .logo {
   font-size: 25px;
@@ -28,4 +14,27 @@
 .a {
   text-decoration: none;
   color: white;
+}
+.headerRight {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+}
+
+.headerLink {
+  margin-right: 5%;
+}
+
+.buttonWrapper {
+  height: 50%;
+  width: 40%;
+}
+.button {
+  border-radius: 5px;
+  background-color: #fff;
+  height: 100%;
+  width: 60%;
+  font-size: medium;
 }

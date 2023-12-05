@@ -20,12 +20,13 @@ const Edit = () => {
   //   setShowToast(true);
   //   setSavedSelfIntroduction(searchParams.get("selfIntroduction"));
   // }, [searchParams.get("selfIntroduction")]);
+  const [savedSelfIntroduction, setSavedSelfIntroduction] = useState();
 
-  const [savedSelfIntroduction, setSavedSelfIntroduction] = useState(
+  useEffect(() => {
     searchParams.get("selfIntroduction")
       ? searchParams.get("selfIntroduction")
-      : ""
-  );
+      : "";
+  });
 
   const [inputselfIntroduction, setInputselfIntroduction] = useState();
   const onChangeSelfIntroduce = (event) =>
@@ -70,7 +71,7 @@ const Edit = () => {
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
-      {/* <HeaderSignedIn />
+      <HeaderSignedIn />
       <div className={styles.editContainer}>
         <h2 className={styles.title}>自己紹介を編集する</h2>
         <div>
@@ -127,7 +128,7 @@ const Edit = () => {
             自己紹介を確定する
           </button>
         </div>
-      </div> */}
+      </div>
       <Footer />
     </div>
   );

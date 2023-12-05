@@ -13,17 +13,27 @@ import Footer from "@/components/atoms/layouts/Footer/Footer";
 const Edit = () => {
   const [userId, setuserId] = useState("");
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const params = useParams();
+  // useEffect(() => {
+  //   setShowToast(true);
+  //   setSavedSelfIntroduction(searchParams.get("selfIntroduction"));
+  // }, [searchParams.get("selfIntroduction")]);
+
   const [savedSelfIntroduction, setSavedSelfIntroduction] = useState(
-    localStorage.getItem("selfIntroduction")
-      ? localStorage.getItem("selfIntroduction")
+    searchParams.get("selfIntroduction")
+      ? searchParams.get("selfIntroduction")
       : ""
   );
-  const [inputselfIntroduction, setInputselfIntroduction] = useState(
-    savedSelfIntroduction
-  );
+  //   localStorage.getItem("selfIntroduction")
+  //     ? localStorage.getItem("selfIntroduction")
+  //     : ""
+  // );
+
+  const [inputselfIntroduction, setInputselfIntroduction] = useState();
   const onChangeSelfIntroduce = (event) =>
-    setInputselfIntroduction(event.target.value);
+    setSavedSelfIntroduction(event.target.value);
   const {
     register,
     handleSubmit,
@@ -49,7 +59,7 @@ const Edit = () => {
     try {
       console.log(inputselfIntroduction);
       const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
-        self_introduction: inputselfIntroduction,
+        self_introduction: savedSelfIntroduction,
       });
       console.log(res);
       console.log(res.data);

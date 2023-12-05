@@ -47,11 +47,15 @@ const UserDetails = () => {
       console.error("User is null");
       return;
     }
-    localStorage.setItem(
-      "selfIntroduction",
-      user.self_introduction ? user.self_introduction : ""
+    // localStorage.setItem(
+    //   "selfIntroduction",
+    //   user.self_introduction ? user.self_introduction : ""
+    // );
+    const selfIntroduction = user.self_introduction;
+
+    router.push(
+      `http://localhost:8000/users/edit/${params.slug}?selfIntroduction=${selfIntroduction}`
     );
-    router.push(`http://localhost:8000/users/edit/${params.slug}`);
   };
 
   const handleSelectChange = (selectedValue) => {

@@ -1,17 +1,5 @@
 "use client";
 
-const setValue = (key, value) => {
-  return typeof window !== "undefined"
-    ? localStorage.setItem(key, value)
-    : undefined;
-};
-
-const getValue = (key) => {
-  return typeof window !== "undefined"
-    ? JSON.stringify(localStorage.getItem(key))
-    : null;
-};
-
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import AddImage from "@/components/atoms/AddImage";
 import axios from "axios";
@@ -53,6 +41,12 @@ const Edit = () => {
 
   // );
   const router = useRouter();
+
+  useEffect(() => {
+    const getUserfromLocalStorage = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null;
+  }, []);
 
   // const onClickAddSelfIntroduction = async () => {
   const onSubmit = async () => {

@@ -99,7 +99,7 @@ const UserDetails = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <SkillDataLoader onDataLoaded={handleSkillFromChild} />
-      <HeaderSignedIn />
+      <HeaderSignedIn user={user} />
       {/* {loginMessage === null ? (
         ""
       ) : (

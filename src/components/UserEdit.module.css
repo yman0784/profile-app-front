@@ -1,0 +1,53 @@
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 100;
+  width: 40%;
+}
+
+.editContainer {
+  width: 50%;
+  margin: 7vh auto 10vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.buttonWrapper {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+.button {
+  background-color: #1b5678;
+  color: #fff;
+  width: 50%;
+  height: 5vh;
+  font-size: large;
+  font-weight: lighter;
+  border-radius: 5px;
+}
+.editBox {
+  border: none;
+  border-bottom: 2px solid #949494;
+  resize: none;
+  color: #212121;
+  margin: 0 auto;
+}
+.editBox:focus {
+  outline: none;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  color: #757575;
+}
+.imageButtonWrapper {
+  width: 65%;
+  padding: 0 auto;
+}
+
+.form_error {
+  color: red;
+}

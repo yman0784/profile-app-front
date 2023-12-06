@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -5,7 +7,7 @@ import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import styles from "./index.module.css";
 
-const HeaderSignedIn = () => {
+const HeaderSignedIn = (user) => {
   const id = Cookies.get("num");
   const handleLogoutResponse = (res) => {
     Cookies.remove("_access_token");

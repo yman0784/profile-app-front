@@ -4,14 +4,14 @@ import Footer from "@/components/atoms/layouts/Footer/Footer";
 import ClientProvider from "../../../../../ClientProvider";
 import UserEdit from "@/components/UserEdit";
 
-const Edit = () => {
+const Edit = (user) => {
   return (
     <ClientProvider>
       <div
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
         <HeaderSignedIn />
-        <UserEdit />
+        <UserEdit user={user} />
         <Footer />
       </div>
     </ClientProvider>

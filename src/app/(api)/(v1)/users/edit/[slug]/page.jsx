@@ -6,15 +6,13 @@ import UserEdit from "@/components/UserEdit";
 
 const Edit = (user) => {
   return (
-    <ClientProvider>
-      <div
-        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      >
-        <HeaderSignedIn />
-        <UserEdit user={user} />
-        <Footer />
-      </div>
-    </ClientProvider>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      {/* <HeaderSignedIn /> */}
+      <UserEdit user={user} />
+      <Footer />
+    </div>
   );
 };
 

@@ -38,7 +38,6 @@ const UserDetails = () => {
   //     console.error("User is null");
   //     return;
   //   }
-  //   localStorage.setItem("selfIntroduction", user.self_introduction);
   //   router.push(`http://localhost:8000/users/edit/${params.slug}`);
   // };
 

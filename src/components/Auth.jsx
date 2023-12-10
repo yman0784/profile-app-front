@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { redirect, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -11,7 +11,7 @@ const Auth = ({ children }) => {
   useLayoutEffect(() => {
     if (signedIn === undefined) {
       console.log(Cookies.get("access_token"));
-      router.replace("http://localhost:8000/sign_in");
+      router.replace("/sign_in");
     }
   });
 

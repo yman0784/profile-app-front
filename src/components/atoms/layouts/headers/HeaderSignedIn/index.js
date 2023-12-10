@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -22,7 +24,8 @@ const HeaderSignedIn = () => {
     console.log("logOutボタン");
     try {
       const res = await axios.delete(
-        "http://localhost:3000/api/v1/auth/sign_out",
+        // "http://localhost:3000/api/v1/auth/sign_out",
+        `https://profileapp-api.onrender.com/api/v1/auth/sign_out`,
         {
           withCredentials: true,
         }
@@ -31,9 +34,7 @@ const HeaderSignedIn = () => {
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
     }
-    await router.push(
-      "http://localhost:8000/sign_in?message=ログアウトしました"
-    );
+    await router.push("/sign_in?message=ログアウトしました");
   };
 
   return (
@@ -46,18 +47,12 @@ const HeaderSignedIn = () => {
         </div>
         <div className={styles.headerRight}>
           <div className={styles.headerLink}>
-            <Link
-              href={`http://localhost:8000/users/${id}`}
-              className={styles.a}
-            >
+            <Link href={`/users/${id}`} className={styles.a}>
               ユーザー詳細
             </Link>
           </div>
           <div className={styles.headerLink}>
-            <Link
-              href={`http://localhost:8000/users/edit/${id}`}
-              className={styles.a}
-            >
+            <Link href={`/users/edit/${id}`} className={styles.a}>
               ユーザー編集
             </Link>
           </div>

@@ -38,7 +38,7 @@ const UserDetails = () => {
   //     console.error("User is null");
   //     return;
   //   }
-  //   router.push(`http://localhost:8000/users/edit/${params.slug}`);
+  //   router.push(`/users/edit/${params.slug}`);
   // };
 
   // const handleSelectChange = (selectedValue) => {
@@ -47,7 +47,7 @@ const UserDetails = () => {
   // };
 
   // const ToSkillIndex = () => {
-  //   router.push("http://localhost:8000/skills/index");
+  //   router.push("/skills/index");
   // };
 
   // useEffect(() => {

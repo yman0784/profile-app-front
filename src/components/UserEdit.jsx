@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddImage from "./atoms/AddImage";
 import {
   useParams,
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import styles from "./UserEdit.module.css";
 import axios from "axios";
 
-const UserEdit = (user) => {
+const UserEdit = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -30,6 +30,26 @@ const UserEdit = (user) => {
   const savedSelfIntroduction = searchParams.get("selfIntroduction")
     ? searchParams.get("selfIntroduction")
     : "";
+  const [ueserIntroduction, setUserIntroduction] = useState(
+    savedSelfIntroduction
+  );
+
+  useEffect(() => {
+    const fetchUserIntroductionData = async () => {
+      try {
+        const apiClient = axios.create({
+          withCredentials: true,
+        });
+        const response = await apiClient.get(
+          `http://localhost:3000/api/v1${pathname}`
+        );
+        setUserIntroduction(response.data.user.self_introduction);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUserIntroductionData();
+  }, []);
 
   const [inputselfIntroduction, setInputselfIntroduction] = useState(
     savedSelfIntroduction
@@ -48,7 +68,7 @@ const UserEdit = (user) => {
       console.log(res.data);
       console.log(res.data.data);
       const id = res.data.data.id;
-      router.push(`http://localhost:8000/users/${id}`);
+      router.push(`/users/${id}`);
       console.log(user);
       console.log(params);
       console.log(params.slug);
@@ -70,7 +90,7 @@ const UserEdit = (user) => {
                 id="introduction"
                 name="introduction"
                 className={styles.editBox}
-                defaultValue={savedSelfIntroduction}
+                defaultValue={savedSelfIntroduction || ueserIntroduction}
                 rows={5}
                 cols={60}
                 {...register("introduction", {

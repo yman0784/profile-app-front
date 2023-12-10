@@ -50,10 +50,12 @@ const UserDetails = () => {
     //   "selfIntroduction",
     //   user.self_introduction ? user.self_introduction : ""
     // );
-    const selfIntroduction = user.self_introduction;
+    const selfIntroduction = user.self_introduction
+      ? user.self_introduction
+      : "";
 
     router.push(
-      `http://localhost:8000/users/edit/${params.slug}?selfIntroduction=${selfIntroduction}`
+      `/users/edit/${params.slug}?selfIntroduction=${selfIntroduction}`
     );
   };
 
@@ -63,7 +65,7 @@ const UserDetails = () => {
   };
 
   const ToSkillIndex = () => {
-    router.push("http://localhost:8000/skills/index");
+    router.push("/skills/index");
   };
 
   useEffect(() => {
@@ -71,10 +73,15 @@ const UserDetails = () => {
       try {
         const apiClient = axios.create({
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
         const response = await apiClient.get(
-          `http://localhost:3000/api/v1${pathname}`
+          // `http://localhost:3000/api/v1${pathname}`
+          `https://profileapp-api.onrender.com/api/v1${pathname}`
         );
+        console.log(response);
         setUser(response.data.user);
         setLoading(false);
         setImageUrl(response.data.image);

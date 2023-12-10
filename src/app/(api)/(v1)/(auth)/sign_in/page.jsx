@@ -38,6 +38,7 @@ const Login = () => {
     Cookies.set("access-token", res.headers["access-token"]);
     Cookies.set("client", res.headers["client"]);
     Cookies.set("uid", res.headers["uid"]);
+    Cookies.set("token", res.headers["token"]);
   };
 
   const onSubmit = async (data) => {

@@ -35,9 +35,9 @@ const Login = () => {
   const handleLoginResponse = (res) => {
     console.log("login response: ", res);
     console.log("login response: ", res.headers);
-    Cookies.set("_access_token", res.headers["access-token"]);
-    Cookies.set("_client", res.headers["client"]);
-    Cookies.set("_uid", res.headers["uid"]);
+    Cookies.set("access_token", res.headers["access-token"]);
+    Cookies.set("client", res.headers["client"]);
+    Cookies.set("uid", res.headers["uid"]);
   };
 
   const onSubmit = async (data) => {

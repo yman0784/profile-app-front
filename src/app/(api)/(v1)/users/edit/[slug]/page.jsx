@@ -9,7 +9,7 @@ const Edit = (user) => {
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
-      {/* <HeaderSignedIn /> */}
+      <HeaderSignedIn />
       <UserEdit user={user} />
       <Footer />
     </div>

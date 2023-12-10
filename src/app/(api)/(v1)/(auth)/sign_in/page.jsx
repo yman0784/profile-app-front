@@ -35,7 +35,7 @@ const Login = () => {
   const handleLoginResponse = (res) => {
     console.log("login response: ", res);
     console.log("login response: ", res.headers);
-    Cookies.set("access_token", res.headers["access-token"]);
+    Cookies.set("access-token", res.headers["access-token"]);
     Cookies.set("client", res.headers["client"]);
     Cookies.set("uid", res.headers["uid"]);
   };

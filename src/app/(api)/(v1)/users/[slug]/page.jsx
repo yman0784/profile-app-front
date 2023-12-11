@@ -78,8 +78,8 @@ const UserDetails = () => {
           },
         });
         const response = await apiClient.get(
-          `http://localhost:3000/api/v1${pathname}`
-          // `https://profileapp-api.onrender.com/api/v1${pathname}`
+          // `http://localhost:3000/api/v1${pathname}`
+          `https://profileapp-api.onrender.com/api/v1${pathname}`
         );
         console.log(response);
         setUser(response.data.user);

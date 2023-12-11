@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { useForm } from "react-hook-form";
 import Footer from "@/components/atoms/layouts/Footer/Footer";
+import { useToken } from "@/components/TokenContext";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -33,14 +34,22 @@ const Login = () => {
   }, [searchParams]);
 
   const handleLoginResponse = (res) => {
+    const { setTokenValue } = useToken();
+    const token = res.headers["token"];
     console.log("login response: ", res);
     console.log("login response: ", res.headers);
     Cookies.set("access-token", res.headers["access-token"], {
       httpOnly: true,
     });
-    Cookies.set("client", res.headers["client"], { httpOnly: true });
-    Cookies.set("uid", res.headers["uid"], { httpOnly: true });
-    Cookies.set("token", res.headers["token"], { httpOnly: true });
+    Cookies.set("_client", res.headers["client"], { httpOnly: true });
+    Cookies.set("_uid", res.headers["uid"], { httpOnly: true });
+    Cookies.set("token", res.headers["token"]);
+    Cookies.set("_interslice_session", res.headers["_interslice_session"]);
+    const _sessionID = Cookies.get("_session_id");
+    const sessionID = Cookies.get("session_id");
+    console.log(_sessionID);
+    console.log(sessionID);
+    setTokenValue(token);
   };
 
   const onSubmit = async (data) => {
@@ -58,8 +67,8 @@ const Login = () => {
 
     try {
       const res = await apiClient.post(
-        // "http://localhost:3000/api/v1/auth/sign_in",
-        "https://profileapp-api.onrender.com/api/v1/auth/sign_in",
+        "http://localhost:3000/api/v1/auth/sign_in",
+        // "https://profileapp-api.onrender.com/api/v1/auth/sign_in",
         Params
       );
       const loginMessage = res.data.message;

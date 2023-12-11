@@ -14,6 +14,7 @@ import SkillChartCategory from "@/components/Chart/SkillChartCategory";
 import SelectBox from "@/components/SelectBox";
 import Toast from "@/components/atoms/Toast";
 import Footer from "@/components/atoms/layouts/Footer/Footer";
+import { useToken } from "@/components/TokenContext";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -31,6 +32,7 @@ const UserDetails = () => {
   const [showToast, setShowToast] = useState(false);
   const [loginMessage, setLoginMessage] = useState("");
   const searchParams = useSearchParams();
+  const { token } = useToken();
 
   const handleSkillFromChild = (skills) => {
     setChartSkills(skills);
@@ -75,11 +77,12 @@ const UserDetails = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer Bearer ${token}`,
           },
         });
         const response = await apiClient.get(
-          // `http://localhost:3000/api/v1${pathname}`
-          `https://profileapp-api.onrender.com/api/v1${pathname}`
+          `http://localhost:3000/api/v1${pathname}`
+          // `https://profileapp-api.onrender.com/api/v1${pathname}`
         );
         console.log(response);
         setUser(response.data.user);

@@ -33,6 +33,7 @@ const UserDetails = () => {
   const [loginMessage, setLoginMessage] = useState("");
   const searchParams = useSearchParams();
   const { token } = useToken();
+  const { sessionId } = useToken();
 
   const handleSkillFromChild = (skills) => {
     setChartSkills(skills);
@@ -77,19 +78,22 @@ const UserDetails = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
+            _session_id: `${sessionId}`,
           },
         });
         const response = await apiClient.get(
-          `http://localhost:3000/api/v1${pathname}`
-          // `https://profileapp-api.onrender.com/api/v1${pathname}`
+          // `http://localhost:3000/api/v1${pathname}`
+          `https://profileapp-api.onrender.com/api/v1${pathname}`
         );
         console.log(response);
+        console.log(pathname);
         setUser(response.data.user);
         setLoading(false);
         setImageUrl(response.data.image);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setUser(null);
       }
     };
     fetchUserData();

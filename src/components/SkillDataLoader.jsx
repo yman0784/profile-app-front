@@ -6,12 +6,14 @@ import { useToken } from "./TokenContext";
 const SkillDataLoader = ({ onDataLoaded }) => {
   const [skills, setSkills] = useState([]);
   const { token } = useToken();
+  const { sessionId } = useToken();
 
   const apiClient = axios.create({
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
+      _session_id: `${sessionId}`,
     },
   });
 
@@ -19,8 +21,8 @@ const SkillDataLoader = ({ onDataLoaded }) => {
     const fetchData = async () => {
       try {
         const response = await apiClient.get(
-          "http://localhost:3000/api/v1/skills"
-          // "https://profileapp-api.onrender.com/api/v1/skills"
+          // "http://localhost:3000/api/v1/skills"
+          "https://profileapp-api.onrender.com/api/v1/skills"
         );
         const updatedSkills = [
           response.data.backskills,

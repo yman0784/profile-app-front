@@ -24,8 +24,8 @@ const HeaderSignedIn = () => {
     console.log("logOutボタン");
     try {
       const res = await axios.delete(
-        // "http://localhost:3000/api/v1/auth/sign_out",
-        `https://profileapp-api.onrender.com/api/v1/auth/sign_out`,
+        "http://localhost:3000/api/v1/auth/sign_out",
+        // `https://profileapp-api.onrender.com/api/v1/auth/sign_out`,
         {
           withCredentials: true,
         }

@@ -5,13 +5,19 @@ const TokenContext = createContext();
 
 export const TokenProvider = ({ children }) => {
   const [token, setToken] = useState("");
+  const [sessionId, setSessionId] = useState("");
 
   const setTokenValue = (newToken) => {
     setToken(newToken);
   };
+  const setSessionIdvalue = (newSessionID) => {
+    setSessionId(newSessionID);
+  };
 
   return (
-    <TokenContext.Provider value={{ token, setTokenValue }}>
+    <TokenContext.Provider
+      value={{ token, setTokenValue, sessionId, setSessionIdvalue }}
+    >
       {children}
     </TokenContext.Provider>
   );

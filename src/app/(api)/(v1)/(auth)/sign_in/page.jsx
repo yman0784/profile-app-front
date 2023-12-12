@@ -33,23 +33,22 @@ const Login = () => {
     setLogoutMessage(searchParams.get("message"));
   }, [searchParams]);
 
+  const { setTokenValue } = useToken();
+  const { setSessionIdvalue } = useToken();
   const handleLoginResponse = (res) => {
-    const { setTokenValue } = useToken();
     const token = res.headers["token"];
+    const sessionID = res.headers["_interslice_session"];
     console.log("login response: ", res);
     console.log("login response: ", res.headers);
-    Cookies.set("access-token", res.headers["access-token"], {
-      httpOnly: true,
-    });
-    Cookies.set("_client", res.headers["client"], { httpOnly: true });
-    Cookies.set("_uid", res.headers["uid"], { httpOnly: true });
+    Cookies.set("_access-token", res.headers["access-token"]);
+    Cookies.set("_client", res.headers["client"]);
+    Cookies.set("_uid", res.headers["uid"]);
+    Cookies.set("_interslice_session", res.headers["session_id"]);
     Cookies.set("token", res.headers["token"]);
-    Cookies.set("_interslice_session", res.headers["_interslice_session"]);
-    const _sessionID = Cookies.get("_session_id");
-    const sessionID = Cookies.get("session_id");
     console.log(_sessionID);
     console.log(sessionID);
     setTokenValue(token);
+    setSessionIdvalue(sessionID);
   };
 
   const onSubmit = async (data) => {
@@ -67,8 +66,8 @@ const Login = () => {
 
     try {
       const res = await apiClient.post(
-        "http://localhost:3000/api/v1/auth/sign_in",
-        // "https://profileapp-api.onrender.com/api/v1/auth/sign_in",
+        // "http://localhost:3000/api/v1/auth/sign_in",
+        "https://profileapp-api.onrender.com/api/v1/auth/sign_in",
         Params
       );
       const loginMessage = res.data.message;

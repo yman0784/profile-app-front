@@ -10,7 +10,7 @@ import styles from "./index.module.css";
 const HeaderSignedIn = () => {
   const id = Cookies.get("num");
   const handleLogoutResponse = (res) => {
-    Cookies.remove("_access_token");
+    Cookies.remove("_access-token");
     Cookies.remove("_client");
     Cookies.remove("_uid");
     Cookies.remove("token");

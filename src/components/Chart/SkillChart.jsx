@@ -101,9 +101,9 @@ const SkillChart = ({ skills, index, month, isLeft }) => {
       });
     });
 
-    console.log("Labels:", labels);
-    console.log("Datasets:", datasets);
-    console.log("skills", skills);
+    // console.log("Labels:", labels);
+    // console.log("Datasets:", datasets);
+    // console.log("skills", skills);
 
     const data = {
       labels: labels,
@@ -111,7 +111,7 @@ const SkillChart = ({ skills, index, month, isLeft }) => {
       borderWidth: 5,
     };
 
-    console.log("Final Data:", data);
+    // console.log("Final Data:", data);
 
     const options = {
       layout: {

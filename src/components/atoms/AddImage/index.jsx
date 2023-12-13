@@ -19,7 +19,9 @@ const handleFileChange = (event, userId) => {
 
   const response = apiClient
     .post(
-      `http://localhost:3000/api/v1/users/${userId.userId}/upload_image`,
+      // `http://localhost:3000/api/v1/users/${userId.userId}/upload_image`,
+      `https://profileapp-api.onrender.com/api/v1/users/${userId.userId}/upload_image`,
+
       formData,
       {
         headers: {
@@ -31,11 +33,11 @@ const handleFileChange = (event, userId) => {
       console.log("Image uploaded successfully:", response.data);
     })
     .catch((error) => {
-      console.log(userId);
-      console.log(userId.userId);
+      // console.log(userId);
+      // console.log(userId.userId);
       console.error("Error uploading image:", error);
-      console.log(params.userId);
-      console.log(params);
+      // console.log(params.userId);
+      // console.log(params);
     });
 };
 const AddImage = (userId) => {

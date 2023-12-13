@@ -29,7 +29,8 @@ const Categories = () => {
 
   const getCategory = async () => {
     await apiClient
-      .get("http://localhost:3000/api/v1/skills")
+      // .get("http://localhost:3000/api/v1/skills")
+      .get("https://profileapp-api.onrender.com/api/v1/skills")
       .then((response) => {
         setResponseData(response.data);
         setCategoryNames(response.data.category_names);
@@ -38,7 +39,7 @@ const Categories = () => {
         setIskills(response.data.infraskills);
         setReceivedCategoryId(response.data.category_id.id);
         const skills = [bskills, fskills, iskills];
-        console.log(response);
+        // console.log(response);
 
         const categoryIds = response.data.category_id.map(
           (category) => category.id
@@ -46,7 +47,7 @@ const Categories = () => {
         setReceivedCategoryId(categoryIds);
       })
       .catch((error) => {
-        console.error("Error fetching todos:", error);
+        console.error("Error fetching :", error);
       });
   };
 
@@ -71,7 +72,7 @@ const Categories = () => {
 
   useEffect(() => {
     getCategory();
-    console.log(skills);
+    // console.log(skills);
   }, []);
 
   return (

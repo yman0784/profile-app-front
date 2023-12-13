@@ -59,7 +59,8 @@ const Skills = (props) => {
 
     try {
       const res = await apiClient.post(
-        "http://localhost:3000/api/v1/skills",
+        // "http://localhost:3000/api/v1/skills",
+        "https://profileapp-api.onrender.com/api/v1/skills",
         Params
       );
       if (res.status === 201) {

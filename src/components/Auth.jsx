@@ -10,7 +10,7 @@ const Auth = ({ children }) => {
 
   useLayoutEffect(() => {
     if (signedIn === undefined) {
-      console.log(Cookies.get("access_token"));
+      // console.log(Cookies.get("access_token"));
       router.replace("/sign_in");
     }
   });

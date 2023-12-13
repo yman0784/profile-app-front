@@ -12,8 +12,7 @@ const SkillDataLoader = ({ onDataLoaded }) => {
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      _session_id: `${sessionId}`,
+      Authorization: `${token}`,
     },
   });
 

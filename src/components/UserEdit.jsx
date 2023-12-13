@@ -41,7 +41,8 @@ const UserEdit = () => {
           withCredentials: true,
         });
         const response = await apiClient.get(
-          `http://localhost:3000/api/v1${pathname}`
+          // `http://localhost:3000/api/v1${pathname}`
+          `https://profileapp-api.onrender.com/api/v1${pathname}`
         );
         setUserIntroduction(response.data.user.self_introduction);
       } catch (error) {
@@ -60,18 +61,22 @@ const UserEdit = () => {
       withCredentials: true,
     });
     try {
-      console.log(inputselfIntroduction);
-      const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
-        self_introduction: data.introduction,
-      });
-      console.log(res);
-      console.log(res.data);
-      console.log(res.data.data);
+      // console.log(inputselfIntroduction);
+      // const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
+      const res = await apiClient.put(
+        "https://profileapp-api.onrender.com/api/v1/auth",
+        {
+          self_introduction: data.introduction,
+        }
+      );
+      // console.log(res);
+      // console.log(res.data);
+      // console.log(res.data.data);
       const id = res.data.data.id;
       router.push(`/users/${id}`);
-      console.log(user);
-      console.log(params);
-      console.log(params.slug);
+      // console.log(user);
+      // console.log(params);
+      // console.log(params.slug);
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
     }

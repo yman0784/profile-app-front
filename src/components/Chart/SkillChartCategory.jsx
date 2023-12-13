@@ -26,17 +26,17 @@ const SkillChartCategory = ({ skills, index, month, isLeft }) => {
       return skill.data.reduce((sum, value) => sum + value, 0);
     }
     // data プロパティが配列でない場合、エラーまたはデフォルト値を返す
-    console.error("Invalid data format for skill:", skill);
+    // console.error("Invalid data format for skill:", skill);
     return 0;
   };
 
   // 各要素の data の合計を計算
-  console.log("skills[index]:", skills[index]);
+  // console.log("skills[index]:", skills[index]);
   const levels = [];
   skills[index].forEach((skill) => {
     levels.push(skill.level);
   });
-  console.log(levels);
+  // console.log(levels);
   // const dataSums = skills[index].map((skill) => calculateDataSum(skill));
 
   // dataSums をコンソールに表示

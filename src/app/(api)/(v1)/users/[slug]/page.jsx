@@ -78,13 +78,12 @@ const UserDetails = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            _session_id: `${sessionId}`,
+            Authorization: `${token}`,
           },
         });
         const response = await apiClient.get(
-          `http://localhost:3000/api/v1${pathname}`
-          // `https://profileapp-api.onrender.com/api/v1${pathname}`
+          // `http://localhost:3000/api/v1${pathname}`
+          `https://profileapp-api.onrender.com/api/v1${pathname}`
         );
         console.log(response);
         console.log(pathname);
@@ -103,10 +102,13 @@ const UserDetails = () => {
   }, [lastMonth, nowMonth, pathname, twoMonthsAgo]);
 
   if (loading) {
+    console.log(token);
     return <div>Loading...</div>;
   }
 
   if (!user) {
+    console.log(token);
+
     return <NotFound />;
   }
   return (

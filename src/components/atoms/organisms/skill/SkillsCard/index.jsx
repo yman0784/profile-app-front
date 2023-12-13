@@ -43,7 +43,8 @@ const SkillCard = ({ skills }) => {
 
     try {
       const res = await apiClient.put(
-        `http://localhost:3000/api/v1/skills/${Params.id}`,
+        // `http://localhost:3000/api/v1/skills/${Params.id}`,
+        `https://profileapp-api.onrender.com/api/v1//skills/${Params.id}`,
         Params
       );
       setShow(true);
@@ -64,7 +65,8 @@ const SkillCard = ({ skills }) => {
     };
     try {
       const res = await apiClient.delete(
-        `http://localhost:3000/api/v1/skills/${Params.id}`,
+        // `http://localhost:3000/api/v1/skills/${Params.id}`,
+        `https://profileapp-api.onrender.com/api/v1/skills/${Params.id}`,
         Params
       );
       setDeletedSkills((prevDeletedSkills) => [...prevDeletedSkills, skill.id]);
@@ -73,7 +75,7 @@ const SkillCard = ({ skills }) => {
     } catch (error) {
       console.error("エラーレスポンス:", error.response);
     }
-    console.log(skill.id);
+    // console.log(skill.id);
   };
 
   return (

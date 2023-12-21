@@ -2,9 +2,13 @@
 import React, { useRef } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import { useToken } from "@/components/TokenContext";
+import Cookies from "js-cookie";
 
-const handleFileChange = (event, userId) => {
-  const params = useParams;
+const handleFileChange = (event, token, userId) => {
+  // const params = useParams();
+  const authorization = Cookies.get("authorization");
+
   if (!event.target || !event.target.files || event.target.files.length === 0) {
     return;
   }
@@ -15,6 +19,10 @@ const handleFileChange = (event, userId) => {
 
   const apiClient = axios.create({
     withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${authorization}`,
+    },
   });
 
   const response = apiClient
@@ -42,6 +50,7 @@ const handleFileChange = (event, userId) => {
 };
 const AddImage = (userId) => {
   const fileInputRef = useRef(null);
+  const { token } = useToken();
 
   const onButtonClick = () => {
     fileInputRef.current.click();
@@ -56,7 +65,7 @@ const AddImage = (userId) => {
       <input
         type="file"
         accept="image/*"
-        onChange={(e) => handleFileChange(e, userId)}
+        onChange={(e) => handleFileChange(e, token, userId)}
         ref={fileInputRef}
         style={{ display: "none" }}
       />

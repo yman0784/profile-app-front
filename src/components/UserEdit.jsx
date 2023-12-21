@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import AddImage from "./atoms/AddImage";
 import {
   useParams,
@@ -11,12 +11,17 @@ import {
 import { useForm } from "react-hook-form";
 import styles from "./UserEdit.module.css";
 import axios from "axios";
+import { useToken } from "./TokenContext";
+import Cookies from "js-cookie";
+import { fetchUser } from "./ServerAction";
 
-const UserEdit = () => {
+const UserEdit = (user) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = useParams();
+  const { token } = useToken();
+  const authorization = Cookies.get("authorization");
 
   const {
     register,
@@ -34,41 +39,72 @@ const UserEdit = () => {
     savedSelfIntroduction
   );
 
+  // useEffect(() => {
+  //   console.log(token);
+  //   const fetchUserIntroductionData = async () => {
+  //     try {
+  //       const apiClient = axios.create({
+  //         withCredentials: true,
+  //         headers: {
+  //           Authorization: `${authorization}`,
+  //         },
+  //       });
+  //       const response = await apiClient.get(
+  //         // `http://localhost:3000/api/v1/users/${params.slug}`
+  //         `https://profileapp-api.onrender.com/api/v1/users/${params.slug}`
+  //       );
+  //       console.log("response:", response);
+  //       setUserIntroduction(response.data.user.self_introduction);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+  //   fetchUserIntroductionData();
+  //   console.log(`${params}`);
+  //   console.log(params);
+  //   console.log(params.slug);
+  //   console.log(`pathname:${pathname}`);
+  //   console.log(user);
+  // }, []);
+
+  // const [inputselfIntroduction, setInputselfIntroduction] = useState(
+  //   savedSelfIntroduction
+  // );
+
   useEffect(() => {
-    const fetchUserIntroductionData = async () => {
+    const fetchData = async (params) => {
       try {
-        const apiClient = axios.create({
-          withCredentials: true,
-        });
-        const response = await apiClient.get(
-          // `http://localhost:3000/api/v1${pathname}`
-          `https://profileapp-api.onrender.com/api/v1${pathname}`
-        );
-        setUserIntroduction(response.data.user.self_introduction);
+        const fetchUserSelfIntroduction = await fetchUser(params);
+        // console.log(fetchUserSelfIntroduction);
+        // console.log(fetchUserSelfIntroduction.user.self_introduction);
+        const selfIntroduciton =
+          fetchUserSelfIntroduction.user.self_introduction;
+        setUserIntroduction(selfIntroduciton);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-    fetchUserIntroductionData();
+    fetchData(params);
   }, []);
-
-  const [inputselfIntroduction, setInputselfIntroduction] = useState(
-    savedSelfIntroduction
-  );
 
   const onSubmit = async (data) => {
     const apiClient = axios.create({
       withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${authorization}`,
+      },
     });
     try {
-      // console.log(inputselfIntroduction);
       // const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
       const res = await apiClient.put(
         "https://profileapp-api.onrender.com/api/v1/auth",
         {
-          self_introduction: data.introduction,
+          registration: { self_introduction: data.introduction },
+          // self_introduction: data.introduction,
         }
       );
+
       // console.log(res);
       // console.log(res.data);
       // console.log(res.data.data);

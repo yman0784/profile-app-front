@@ -96,7 +96,6 @@ const UserEdit = (user) => {
       },
     });
     try {
-      // console.log(inputselfIntroduction);
       // const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
       const res = await apiClient.put(
         "https://profileapp-api.onrender.com/api/v1/auth",

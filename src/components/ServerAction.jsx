@@ -24,8 +24,8 @@ export async function AuthorizationForFetch(path) {
   try {
     const cookieStore = cookies();
     const authorization = await cookieStore.get("Authorization");
-    // await console.log(authorization);
-    // await console.log(authorization.value);
+    await console.log(authorization);
+    await console.log(authorization.value);
     // await cookies().set("Authorization", authorization, { secure: true });
     const apiClient = axios.create({
       withCredentials: true,
@@ -63,11 +63,15 @@ export async function fetchUser(params) {
         Authorization: authorization.value,
       },
     });
+    const path = params.slug;
     const response = await apiClient.get(
-      `https://profileapp-api.onrender.com/api/v1/users/${params.slug}`
+      `https://profileapp-api.onrender.com/api/v1/users/${path}`
     );
-    console.log(response);
-    console.log(response.data);
+    console.log(`params:${params}`);
+    console.log(`params.slug:${params.slug}`);
+    console.log(`path: ${path}`);
+    // console.log(response);
+    // console.log(response.data);
     const fetchData = response.data;
     return fetchData;
   } catch (error) {

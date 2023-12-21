@@ -14,7 +14,9 @@ import SkillChartCategory from "@/components/Chart/SkillChartCategory";
 import SelectBox from "@/components/SelectBox";
 import Toast from "@/components/atoms/Toast";
 import Footer from "@/components/atoms/layouts/Footer/Footer";
-import { useToken } from "@/components/TokenContext";
+// import { useToken } from "@/components/TokenContext";
+import Cookies from "js-cookie";
+import { AuthorizationForFetch } from "@/components/ServerAction";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -32,8 +34,8 @@ const UserDetails = () => {
   const [showToast, setShowToast] = useState(false);
   const [loginMessage, setLoginMessage] = useState("");
   const searchParams = useSearchParams();
-  const { token } = useToken();
-  const { sessionId } = useToken();
+  // const { token } = useToken();
+  // const { sessionId } = useToken();
 
   const handleSkillFromChild = (skills) => {
     setChartSkills(skills);
@@ -71,55 +73,64 @@ const UserDetails = () => {
     router.push("/skills/index");
   };
 
+  const clientCookie = Cookies.get("Authorization");
+  console.log(`クライアントでAuthorization取得:${clientCookie}`);
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const apiClient = axios.create({
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `${token}`,
-          },
-        });
-        const response = await apiClient.get(
-          // `http://localhost:3000/api/v1${pathname}`
-          `https://profileapp-api.onrender.com/api/v1${pathname}`
-        );
-        console.log(response);
-        console.log(pathname);
-        setUser(response.data.user);
+    // const fetchUserData = async () => {
+    //   try {
+    //     const apiClient = axios.create({
+    //       withCredentials: true,
+    //       secure: true,
+
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         token: await AuthorizationForFetch(),
+    //       },
+    //     });
+    //     const response = await apiClient.get(
+    //       // `http://localhost:3000/api/v1${pathname}`
+    //       `https://profileapp-api.onrender.com/api/v1${pathname}`
+    //     );
+    //     console.log(response);
+    //     console.log(pathname);
+    //     setUser(response.data.user);
+    //     setLoading(false);
+    //     setImageUrl(response.data.image);
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //     setUser(null);
+    //   }
+    // };
+    const fetchUserData = async (pathname) => {
+      const fetchUser = await AuthorizationForFetch(pathname);
+      if (fetchUser) {
+        setUser(fetchUser.user);
         setLoading(false);
-        setImageUrl(response.data.image);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+        setImageUrl(fetchUser.image);
+      } else {
         setUser(null);
       }
     };
-    fetchUserData();
-    console.log(nowMonth);
-    console.log(lastMonth);
-    console.log(twoMonthsAgo);
+    fetchUserData(pathname);
   }, [lastMonth, nowMonth, pathname, twoMonthsAgo]);
 
   if (loading) {
-    console.log(token);
     return <div>Loading...</div>;
   }
 
   if (!user) {
-    console.log(token);
-
     return <NotFound />;
   }
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <SkillDataLoader onDataLoaded={handleSkillFromChild} />
       <HeaderSignedIn user={user} />
-      {/* {loginMessage === null ? (
+      {loginMessage === null ? (
         ""
       ) : (
         <Toast showToast={showToast} message={loginMessage} color={"#55c500"} />
-      )} */}
+      )}
       <div className={styles.userCard}>
         <div className={styles.userContainer}>
           {imageUrl && (

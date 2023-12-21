@@ -1,3 +1,5 @@
+"user client";
+
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import styles from "./page.module.css";
 import Footer from "@/components/atoms/layouts/Footer/Footer";

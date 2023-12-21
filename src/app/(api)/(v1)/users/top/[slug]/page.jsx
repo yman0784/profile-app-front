@@ -5,14 +5,14 @@ import { useParams, usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import NotFound from "../../../../not-found";
+import NotFound from "../../../../../not-found";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
 import styles from "./page.module.css";
 import SkillDataLoader from "@/components/SkillDataLoader";
 import DemoChart from "@/components/Chart/DemoChart";
 import SkillChartCategory from "@/components/Chart/SkillChartCategory";
 import SelectBox from "@/components/SelectBox";
-import Footer from "../../../../../components/atoms/layouts/Footer/Footer";
+import Footer from "@/components/atoms/layouts/Footer/Footer";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);

@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { useToken } from "@/components/TokenContext";
+// import { useToken } from "@/components/TokenContext";
 import Cookies from "js-cookie";
 
 const handleFileChange = (event, token, userId) => {
@@ -50,7 +50,7 @@ const handleFileChange = (event, token, userId) => {
 };
 const AddImage = (userId) => {
   const fileInputRef = useRef(null);
-  const { token } = useToken();
+  // const { token } = useToken();
 
   const onButtonClick = () => {
     fileInputRef.current.click();

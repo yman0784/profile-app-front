@@ -11,16 +11,16 @@ import {
 import { useForm } from "react-hook-form";
 import styles from "./UserEdit.module.css";
 import axios from "axios";
-import { useToken } from "./TokenContext";
+// import { useToken } from "./TokenContext";
 import Cookies from "js-cookie";
-import { fetchUser } from "./ServerAction";
+import { PutData, fetchUser } from "./ServerAction";
 
 const UserEdit = (user) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = useParams();
-  const { token } = useToken();
+  // const { token } = useToken();
   const authorization = Cookies.get("authorization");
 
   const {
@@ -88,33 +88,41 @@ const UserEdit = (user) => {
   }, []);
 
   const onSubmit = async (data) => {
-    const apiClient = axios.create({
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${authorization}`,
-      },
-    });
-    try {
-      // const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
-      const res = await apiClient.put(
-        "https://profileapp-api.onrender.com/api/v1/auth",
-        {
-          registration: { self_introduction: data.introduction },
-          // self_introduction: data.introduction,
-        }
-      );
-
-      // console.log(res);
-      // console.log(res.data);
-      // console.log(res.data.data);
-      const id = res.data.data.id;
+    // const apiClient = axios.create({
+    //   withCredentials: true,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `${authorization}`,
+    //   },
+    // });
+    // try {
+    //   // const res = await apiClient.put("http://localhost:3000/api/v1/auth", {
+    //   const res = await apiClient.put(
+    //     "https://profileapp-api.onrender.com/api/v1/auth",
+    //     {
+    //       registration: { self_introduction: data.introduction },
+    //       // self_introduction: data.introduction,
+    //     }
+    //   );
+    //   // console.log(res);
+    //   // console.log(res.data);
+    //   // console.log(res.data.data);
+    //   const id = res.data.data.id;
+    //   router.push(`/users/${id}`);
+    //   // console.log(user);
+    //   // console.log(params);
+    //   // console.log(params.slug);
+    // } catch (error) {
+    //   console.error("エラーレスポンス:", error.response);
+    // }
+    const resData = await PutData(data);
+    const status = resData.status;
+    console.log(resData);
+    if (status === "success") {
+      console.log(router);
+      console.log(status);
+      const id = resData.data.id;
       router.push(`/users/${id}`);
-      // console.log(user);
-      // console.log(params);
-      // console.log(params.slug);
-    } catch (error) {
-      console.error("エラーレスポンス:", error.response);
     }
   };
 

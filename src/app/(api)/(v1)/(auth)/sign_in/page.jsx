@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { useForm } from "react-hook-form";
 import Footer from "@/components/atoms/layouts/Footer/Footer";
-import { useToken } from "@/components/TokenContext";
+// import { useToken } from "@/components/TokenContext";
 import { SaveCookiesSignIn } from "@/components/ServerAction";
 import { patchCustomerAuthAction } from "@/components/ServerAction";
 
@@ -35,8 +35,8 @@ const Login = () => {
     setLogoutMessage(searchParams.get("message"));
   }, [searchParams]);
 
-  const { setTokenValue } = useToken();
-  const { setSessionIdvalue } = useToken();
+  // const { setTokenValue } = useToken();
+  // const { setSessionIdvalue } = useToken();
   const handleLoginResponse = async (authorization, id) => {
     await SaveCookiesSignIn(authorization);
     // patchCustomerAuthAction(email, password);

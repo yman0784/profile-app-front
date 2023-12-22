@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useToken } from "./TokenContext";
+// import { useToken } from "./TokenContext";
 import Cookies from "js-cookie";
 import { AuthorizationForFetch } from "@/components/ServerAction";
 
 const SkillDataLoader = ({ onDataLoaded }) => {
   const [skills, setSkills] = useState([]);
-  const { token } = useToken();
-  const { sessionId } = useToken();
+  // const { token } = useToken();
+  // const { sessionId } = useToken();
   // const authorization = Cookies.get("authorization");
 
   // const apiClient = axios.create({

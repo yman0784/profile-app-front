@@ -6,35 +6,39 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import styles from "./index.module.css";
+import { SignOut } from "@/components/ServerAction";
 
 const HeaderSignedIn = () => {
   const id = Cookies.get("num");
-  const handleLogoutResponse = (res) => {
-    Cookies.remove("_access-token");
-    Cookies.remove("_client");
-    Cookies.remove("_uid");
-    Cookies.remove("token");
-    Cookies.remove("num");
+  // const handleLogoutResponse = (res) => {
+  //   Cookies.remove("_access-token");
+  //   Cookies.remove("_client");
+  //   Cookies.remove("_uid");
+  //   Cookies.remove("token");
+  //   Cookies.remove("num");
+  //   Cookies.remove("Authorization");
 
-    console.log("logout response: ", res);
-  };
+  //   console.log("logout response: ", res);
+  // };
   const router = useRouter();
 
   const onClickLogout = async () => {
-    console.log("logOutボタン");
-    try {
-      const res = await axios.delete(
-        // "http://localhost:3000/api/v1/auth/sign_out",
-        `https://profileapp-api.onrender.com/api/v1/auth/sign_out`,
-        {
-          withCredentials: true,
-        }
-      );
-      handleLogoutResponse(res);
-    } catch (error) {
-      console.error("エラーレスポンス:", error.response);
-    }
-    await router.push("/sign_in?message=ログアウトしました");
+    //   console.log("logOutボタン");
+    //   try {
+    //     const res = await axios.delete(
+    //       // "http://localhost:3000/api/v1/auth/sign_out",
+    //       `https://profileapp-api.onrender.com/api/v1/auth/sign_out`,
+    //       {
+    //         withCredentials: true,
+    //       }
+    //     );
+    //     handleLogoutResponse(res);
+    //   } catch (error) {
+    //     console.error("エラーレスポンス:", error.response);
+    //   }
+    //   await router.push("/sign_in?message=ログアウトしました");
+    SignOut();
+    router.push("/sign_in?message=ログアウトしました");
   };
 
   return (

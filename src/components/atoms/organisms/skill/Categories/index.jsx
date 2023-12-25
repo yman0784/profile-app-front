@@ -7,6 +7,7 @@ import Link from "next/link";
 import styles from "./index.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import Modal from "@/components/atoms/layouts/Modal/Modal";
+import { fetchSkills } from "@/components/ServerAction";
 
 const Categories = () => {
   const [categoryNames, setCategoryNames] = useState([]);
@@ -28,28 +29,39 @@ const Categories = () => {
   });
 
   const getCategory = async () => {
-    await apiClient
-      // .get("http://localhost:3000/api/v1/skills")
-      .get("https://profileapp-api.onrender.com/api/v1/skills")
-      .then((response) => {
-        setResponseData(response.data);
-        setCategoryNames(response.data.category_names);
-        setFskills(response.data.frontskills);
-        setBskills(response.data.backskills);
-        setIskills(response.data.infraskills);
-        setReceivedCategoryId(response.data.category_id.id);
-        const skills = [bskills, fskills, iskills];
-        // console.log(response);
+    // await apiClient
+    //   // .get("http://localhost:3000/api/v1/skills")
+    //   .get("https://profileapp-api.onrender.com/api/v1/skills")
+    //   .then((response) => {
+    //     setResponseData(response.data);
+    //     setCategoryNames(response.data.category_names);
+    //     setFskills(response.data.frontskills);
+    //     setBskills(response.data.backskills);
+    //     setIskills(response.data.infraskills);
+    //     setReceivedCategoryId(response.data.category_id.id);
+    //     const skills = [bskills, fskills, iskills];
+    //     // console.log(response);
 
-        const categoryIds = response.data.category_id.map(
-          (category) => category.id
-        );
-        setReceivedCategoryId(categoryIds);
-      })
-      .catch((error) => {
-        console.error("Error fetching :", error);
-      });
+    //     const categoryIds = response.data.category_id.map(
+    //       (category) => category.id
+    //     );
+    //     setReceivedCategoryId(categoryIds);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching :", error);
+    //   });
+    const resData = await fetchSkills();
+    // debugger;
+    console.log(resData);
+    setResponseData(resData);
+    setCategoryNames(resData.category_names);
+    setFskills(resData.frontskills);
+    setBskills(resData.backskills);
+    setIskills(resData.infraskills);
+    setReceivedCategoryId(resData.category_id.id);
+    const skills = [bskills, fskills, iskills];
   };
+  console.log(responseData);
 
   const onClickAddSkill = (name) => {
     const categoryId = (() => {

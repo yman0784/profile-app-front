@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import styles from "./index.module.css";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/atoms/layouts/Modal/Modal";
+import { DeleteSkill, EditSkillLevel } from "@/components/ServerAction";
 
 const SkillCard = ({ skills }) => {
   const [selectedLevel, setSelectedLevel] = useState("");
@@ -30,54 +31,47 @@ const SkillCard = ({ skills }) => {
   };
 
   const onClickSaveSkillLevel = async (skill) => {
-    const apiClient = axios.create({
-      withCredentials: true,
-    });
     const levelToSave = selectedLevel === "" ? skills[0].level : selectedLevel;
     console.log("Selected Level:", levelToSave);
     const Params = {
-      level: levelToSave,
-      category_id: skill.category_id,
-      id: skill.id,
+      skill: {
+        level: levelToSave,
+        category_id: skill.category_id,
+        id: skill.id,
+      },
     };
+    console.log("Params:", Params);
 
-    try {
-      const res = await apiClient.put(
-        // `http://localhost:3000/api/v1/skills/${Params.id}`,
-        `https://profileapp-api.onrender.com/api/v1//skills/${Params.id}`,
-        Params
-      );
-      setShow(true);
-      router.refresh();
-      console.log(res);
-      setChangedLevelSkill(`${res.data.language}の習得レベルを保存しました!`);
-    } catch (error) {
-      console.error("エラーレスポンス:", error.response);
-    }
-    // console.log(skill.id);
+    const handleEditSkillLevel = async (Params) => {
+      try {
+        await setChangedLevelSkill(EditSkillLevel(Params));
+        setShow(true);
+        router.refresh();
+      } catch (error) {
+        console.error("エラーレスポンス:", error.response);
+      }
+    };
+    handleEditSkillLevel(Params);
   };
+
   const onClickSkillDelete = async (skill) => {
-    const apiClient = axios.create({
-      withCredentials: true,
-    });
-    const Params = {
-      id: skill.id,
+    const handleDeleteSkill = async () => {
+      const Params = {
+        id: skill.id,
+      };
+      try {
+        await setChangedLevelSkill(DeleteSkill(Params));
+        setShow(true);
+        setDeletedSkills((prevDeletedSkills) => [
+          ...prevDeletedSkills,
+          skill.id,
+        ]);
+      } catch {
+        console.error("エラーレスポンス:", error.response);
+      }
     };
-    try {
-      const res = await apiClient.delete(
-        // `http://localhost:3000/api/v1/skills/${Params.id}`,
-        `https://profileapp-api.onrender.com/api/v1/skills/${Params.id}`,
-        Params
-      );
-      setDeletedSkills((prevDeletedSkills) => [...prevDeletedSkills, skill.id]);
-      setShow(true);
-      setChangedLevelSkill(`${res.data.language}の項目を削除しました!`);
-    } catch (error) {
-      console.error("エラーレスポンス:", error.response);
-    }
-    // console.log(skill.id);
+    handleDeleteSkill();
   };
-
   return (
     <>
       <Modal

@@ -29,7 +29,7 @@ export async function AuthorizationForFetch(path) {
     // await console.log(authorization.value);
     // await cookies().set("Authorization", authorization, { secure: true });
     const apiClient = axios.create({
-      withCredentials: true,
+      // withCredentials: true,
       secure: true,
 
       headers: {
@@ -43,7 +43,7 @@ export async function AuthorizationForFetch(path) {
     );
     // console.log(`AuthorizationForFetch,${path}`);
     // console.log(response);
-    // console.log(response.data);
+    console.log(response.data);
     const fetchData = response.data;
     // console.log(fetchData);
     // await console.log(`user:${fetchData.user}`);
@@ -109,7 +109,7 @@ export async function SignOut() {
   const cookieStore = cookies();
   const id = await cookieStore.get("num");
   const handleLogoutResponse = () => {
-    cookieStore.delete("_access-token");
+    cookieStore.delete("_access_token");
     cookieStore.delete("_client");
     cookieStore.delete("_uid");
     cookieStore.delete("token");
@@ -135,4 +135,79 @@ export async function SignOut() {
     console.error("エラーレスポンス:", error.response);
   }
   handleLogoutResponse();
+}
+
+export async function fetchSkills() {
+  try {
+    const cookieStore = cookies();
+    const authorization = await cookieStore.get("Authorization");
+    const apiClient = axios.create({
+      withCredentials: true,
+      secure: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization.value,
+      },
+    });
+    const response = await apiClient.get(
+      // "http://localhost:3000/api/v1/skills"),
+      "https://profileapp-api.onrender.com/api/v1/skills"
+    );
+    const fetchData = response.data;
+    return fetchData;
+  } catch (error) {
+    console.error("エラーレスポンス:", error.response);
+  }
+}
+
+export async function EditSkillLevel(Params) {
+  try {
+    const cookieStore = cookies();
+    const authorization = await cookieStore.get("Authorization");
+    const apiClient = axios.create({
+      withCredentials: true,
+      secure: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization.value,
+      },
+    });
+    const res = await apiClient.put(
+      // `http://localhost:3000/api/v1/skills/${Params.id}`,
+      `https://profileapp-api.onrender.com/api/v1//skills/${Params.skill.id}`,
+      Params
+    );
+    const ChangedLanguage = `${res.data.language}の習得レベルを保存しました!`;
+    return ChangedLanguage;
+  } catch (error) {
+    console.error("エラーレスポンス:", error.response);
+  }
+}
+
+export async function DeleteSkill(Params) {
+  try {
+    const cookieStore = cookies();
+    const authorization = await cookieStore.get("Authorization");
+    const apiClient = axios.create({
+      withCredentials: true,
+      secure: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization.value,
+      },
+    });
+
+    const res = await apiClient.delete(
+      // `http://localhost:3000/api/v1/skills/${Params.id}`,
+      `https://profileapp-api.onrender.com/api/v1/skills/${Params.id}`,
+      Params
+    );
+    console.log(`Params:${Params}`);
+    console.log(`Params.id:${Params.id}`);
+    console.log(`res:${res}`);
+    const ChangedLanguage = `${res.data.language}の項目を削除しました!`;
+    return ChangedLanguage;
+  } catch (error) {
+    console.error("エラーレスポンス:", error.response);
+  }
 }

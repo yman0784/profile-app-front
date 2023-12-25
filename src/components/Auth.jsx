@@ -6,10 +6,10 @@ import { useEffect, useLayoutEffect } from "react";
 
 const Auth = ({ children }) => {
   const router = useRouter();
-  const signedIn = Cookies.get("_access_token");
+  const signedInId = Cookies.get("num");
 
   useLayoutEffect(() => {
-    if (signedIn === undefined) {
+    if (signedInId === undefined) {
       // console.log(Cookies.get("access_token"));
       router.replace("/sign_in");
     }

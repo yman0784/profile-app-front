@@ -105,6 +105,7 @@ const UserDetails = () => {
     const fetchUserData = async (pathname) => {
       const fetchUser = await AuthorizationForFetch(pathname);
       if (fetchUser) {
+        console.log(fetchUser);
         setUser(fetchUser.user);
         setLoading(false);
         setImageUrl(fetchUser.image);

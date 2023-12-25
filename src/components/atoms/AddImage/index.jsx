@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 // import { useToken } from "@/components/TokenContext";
 import Cookies from "js-cookie";
 
-const handleFileChange = (event, token, userId) => {
+const handleFileChange = (event, userId) => {
   // const params = useParams();
   const authorization = Cookies.get("authorization");
 
@@ -65,7 +65,7 @@ const AddImage = (userId) => {
       <input
         type="file"
         accept="image/*"
-        onChange={(e) => handleFileChange(e, token, userId)}
+        onChange={(e) => handleFileChange(e, userId)}
         ref={fileInputRef}
         style={{ display: "none" }}
       />

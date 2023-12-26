@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import styles from "./page.module.css";
 import { useForm } from "react-hook-form";
 import Footer from "../../../../../../components/atoms/layouts/Footer/Footer";
+import { AddSkill } from "@/components/ServerAction";
 
 const Skills = (props) => {
   const [inputLanguage, setInputLanguage] = useState("");
@@ -47,24 +48,27 @@ const Skills = (props) => {
   };
 
   const onClickAddSkill = async () => {
-    const apiClient = axios.create({
-      withCredentials: true,
-    });
-
     const Params = {
-      category_id: slug,
-      language: inputLanguage,
-      level: inputLevel,
+      skill: {
+        category_id: slug,
+        language: inputLanguage,
+        level: inputLevel,
+      },
     };
-
+    console.log(`params: ${Params}`);
+    console.log(`params.skill: ${Params.skill}`);
+    console.log(`params.skill.language: ${Params.skill.language}`);
     try {
-      const res = await apiClient.post(
-        // "http://localhost:3000/api/v1/skills",
-        "https://profileapp-api.onrender.com/api/v1/skills",
-        Params
-      );
-      if (res.status === 201) {
+      // AddSkill(Params);
+      // const res = await apiClient.post(
+      //   // "http://localhost:3000/api/v1/skills",
+      //   "https://profileapp-api.onrender.com/api/v1/skills",
+      //   Params
+      // );
+      const resStatus = await AddSkill(Params);
+      if (resStatus === 201) {
         router.push(
+
           `/skills/index?showModal=true&1st=${searchParams.get(
             "categoryName"
           )}&2nd=に${inputLanguage}を&3rd=習得レベル${inputLevel}で追加しました!`,
@@ -77,10 +81,11 @@ const Skills = (props) => {
       setInputLanguage("");
       setInputLevel("");
     } catch (error) {
+      console.log("error");
       console.error("エラーレスポンス:", error.response);
-      const languageError = error.response.data.language;
-      console.log(error.response.data.language);
-      setLanguageError(languageError);
+      // const languageError = error.response.data.language;
+      // console.log(error.response.data.language);
+      // setLanguageError(languageError);
     }
   };
 

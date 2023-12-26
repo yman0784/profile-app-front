@@ -211,3 +211,30 @@ export async function DeleteSkill(Params) {
     console.error("エラーレスポンス:", error.response);
   }
 }
+
+export async function AddSkill(Params) {
+  try {
+    const cookieStore = cookies();
+    const authorization = await cookieStore.get("Authorization");
+    const apiClient = axios.create({
+      withCredentials: true,
+      secure: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization.value,
+      },
+    });
+
+    const res = await apiClient.post(
+      // "http://localhost:3000/api/v1/skills",
+      "https://profileapp-api.onrender.com/api/v1/skills",
+      Params
+    );
+    console.log(`res:${res}`);
+    console.log(`resstatus:${res.status}`);
+    const resStatus = res.status;
+    return resStatus;
+  } catch (error) {
+    console.error("エラーレスポンス:", error.response);
+  }
+}

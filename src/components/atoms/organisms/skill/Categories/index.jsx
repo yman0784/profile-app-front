@@ -53,15 +53,15 @@ const Categories = () => {
     const resData = await fetchSkills();
     // debugger;
     console.log(resData);
+    console.log(resData.category_id);
     setResponseData(resData);
     setCategoryNames(resData.category_names);
     setFskills(resData.frontskills);
     setBskills(resData.backskills);
     setIskills(resData.infraskills);
-    setReceivedCategoryId(resData.category_id.id);
+    await setReceivedCategoryId(resData.category_id);
     const skills = [bskills, fskills, iskills];
   };
-  console.log(responseData);
 
   const onClickAddSkill = (name) => {
     const categoryId = (() => {
@@ -78,7 +78,9 @@ const Categories = () => {
     })();
 
     if (categoryId) {
-      router.push(`/skills/add/${categoryId}?categoryName=${name}`);
+      console.log(categoryId);
+      const selectedCategoryIde = categoryId.id;
+      router.push(`/skills/add/${selectedCategoryIde}?categoryName=${name}`);
     }
   };
 

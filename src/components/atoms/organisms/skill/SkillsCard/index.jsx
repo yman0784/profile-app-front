@@ -72,6 +72,8 @@ const SkillCard = ({ skills }) => {
     };
     handleDeleteSkill();
   };
+  console.log(`skills:${skills}`);
+  console.log(`skills[0]:${skills[0]}`);
   return (
     <>
       <Modal

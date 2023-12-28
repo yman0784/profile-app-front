@@ -86,7 +86,7 @@ const Categories = () => {
 
   useEffect(() => {
     getCategory();
-    // console.log(skills);
+    console.log(`categorypageskills:${skills}`);
   }, []);
 
   return (
@@ -114,7 +114,7 @@ const Categories = () => {
                   スキルを追加する
                 </button>
               </div>
-              <SkillCard key={name} skills={skills[index]} />
+              {/* <SkillCard key={name} skills={skills[index]} /> */}
             </div>
           ))}
         </div>

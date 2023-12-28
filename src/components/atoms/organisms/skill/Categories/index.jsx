@@ -86,6 +86,7 @@ const Categories = () => {
 
   useEffect(() => {
     getCategory();
+    console.log(`pathname${pathname}`);
   }, []);
 
   return (

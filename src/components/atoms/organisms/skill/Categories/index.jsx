@@ -100,34 +100,34 @@ const Categories = () => {
 
   return (
     <div>
-      {pathname.includes("skill") && (
-        <div className={styles.categoryContainer}>
-          {categoryNames.map((name, index) => (
-            <div
-              key={name}
-              style={{
-                border: "1px solid #808080",
-                margin: "20px",
-                padding: "25px",
-                borderRadius: "8px",
-              }}
-            >
-              <div className={styles.categorybox}>
-                <h2 className={styles.title}>{name}</h2>
-                <button
-                  onClick={() => {
-                    onClickAddSkill(name);
-                  }}
-                  className={styles.button}
-                >
-                  スキルを追加する
-                </button>
-              </div>
-              <SkillCard key={name} skills={skills[index]} />
+      {/* {pathname.includes("skill") && ( */}
+      <div className={styles.categoryContainer}>
+        {categoryNames.map((name, index) => (
+          <div
+            key={name}
+            style={{
+              border: "1px solid #808080",
+              margin: "20px",
+              padding: "25px",
+              borderRadius: "8px",
+            }}
+          >
+            <div className={styles.categorybox}>
+              <h2 className={styles.title}>{name}</h2>
+              <button
+                onClick={() => {
+                  onClickAddSkill(name);
+                }}
+                className={styles.button}
+              >
+                スキルを追加する
+              </button>
             </div>
-          ))}
-        </div>
-      )}
+            <SkillCard key={name} skills={skills[index]} />
+          </div>
+        ))}
+      </div>
+      {/* )} */}
     </div>
   );
 };

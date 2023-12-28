@@ -86,7 +86,7 @@ const Categories = () => {
 
   useEffect(() => {
     getCategory();
-  });
+  }, []);
 
   return (
     <div>

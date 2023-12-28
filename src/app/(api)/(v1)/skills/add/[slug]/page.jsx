@@ -68,8 +68,7 @@ const Skills = (props) => {
       const resStatus = await AddSkill(Params);
       if (resStatus === 201) {
         router.push(
-
-          `/skills/index?showModal=true&1st=${searchParams.get(
+          `/skills/all?showModal=true&1st=${searchParams.get(
             "categoryName"
           )}&2nd=に${inputLanguage}を&3rd=習得レベル${inputLevel}で追加しました!`,
           undefined,

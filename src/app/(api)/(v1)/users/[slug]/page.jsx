@@ -67,8 +67,8 @@ const UserDetails = () => {
     setSelectedValue(selectedValue);
   };
 
-  const ToSkillIndex = () => {
-    router.push("/skills/index");
+  const ToSkillAll = () => {
+    router.push("/skills/all");
   };
 
   const clientCookie = Cookies.get("Authorization");
@@ -166,7 +166,7 @@ const UserDetails = () => {
           <div>
             <h2 className={styles.skillTitle}>スキルチャート</h2>
             <div className={styles.skillButtonwrapper}>
-              <button className={styles.button} onClick={ToSkillIndex}>
+              <button className={styles.button} onClick={ToSkillAll}>
                 スキルを編集する
               </button>
             </div>

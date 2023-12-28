@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import SkillCard from "../SkillsCard";
+import SkillCard from "../SkillsCard/index.jsx";
 import Link from "next/link";
 import styles from "./index.module.css";
 import { usePathname, useRouter } from "next/navigation";

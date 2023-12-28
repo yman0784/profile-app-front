@@ -16,7 +16,7 @@ const Index = () => {
     // <Auth>
     <div style={{ display: "flex", flexDirection: "column" }}>
       <HeaderSignedIn />
-      <Categories />
+      {/* <Categories /> */}
       <Footer />
     </div>
     // </Auth>

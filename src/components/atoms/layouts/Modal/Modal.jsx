@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import styles from "./Modal.module.css";
@@ -9,7 +9,7 @@ const Modal = ({ show, setShow, firstLine, secondLine }) => {
   const searchParams = useSearchParams();
 
   const onClickBackToSkillIndex = () => {
-    router.push("/skills/index");
+    router.push("/skills/all");
     setShow(false);
   };
 

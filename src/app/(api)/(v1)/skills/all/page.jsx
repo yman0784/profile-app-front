@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import HeaderSignedIn from "@/components/atoms/layouts/headers/HeaderSignedIn";
-import Categories from "@/components/atoms/organisms/skill/Categories";
 import Auth from "@/components/Auth";
 import Footer from "@/components/atoms/layouts/Footer/Footer";
+import Categories from "@/components/atoms/organisms/skill/Categories/index";
 
-const Index = () => {
+const All = () => {
   const [categoryId, setCategoryId] = useState("");
   const handleValueChange = (newValue) => {
     setCategoryId(newValue);
@@ -25,4 +25,4 @@ const Index = () => {
 
   // return <>{renderSkillIndexForm()}</>;
 };
-export default Index;
+export default All;

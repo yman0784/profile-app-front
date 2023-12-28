@@ -21,7 +21,7 @@ const UserEdit = (user) => {
   const router = useRouter();
   const params = useParams();
   // const { token } = useToken();
-  const authorization = Cookies.get("authorization");
+  const authorization = Cookies.get("Authorization");
 
   const {
     register,
@@ -32,12 +32,10 @@ const UserEdit = (user) => {
     criteriaMode: "all",
   });
 
-  const savedSelfIntroduction = searchParams.get("selfIntroduction")
-    ? searchParams.get("selfIntroduction")
-    : "";
-  const [ueserIntroduction, setUserIntroduction] = useState(
-    savedSelfIntroduction
-  );
+  // const savedSelfIntroduction = searchParams.get("selfIntroduction")
+  //   ? searchParams.get("selfIntroduction")
+  //   : "";
+  const [ueserIntroduction, setUserIntroduction] = useState("");
 
   // useEffect(() => {
   //   console.log(token);
@@ -76,7 +74,7 @@ const UserEdit = (user) => {
       try {
         const fetchUserSelfIntroduction = await fetchUser(params);
         // console.log(fetchUserSelfIntroduction);
-        // console.log(fetchUserSelfIntroduction.user.self_introduction);
+        console.log(fetchUserSelfIntroduction.user.self_introduction);
         const selfIntroduciton =
           fetchUserSelfIntroduction.user.self_introduction;
         setUserIntroduction(selfIntroduciton);
@@ -139,7 +137,7 @@ const UserEdit = (user) => {
                 id="introduction"
                 name="introduction"
                 className={styles.editBox}
-                defaultValue={savedSelfIntroduction || ueserIntroduction}
+                defaultValue={ueserIntroduction}
                 rows={5}
                 cols={60}
                 {...register("introduction", {

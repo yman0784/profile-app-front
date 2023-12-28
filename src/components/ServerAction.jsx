@@ -4,12 +4,10 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import SignInAuth from "./SignInAuth";
 import axios from "axios";
-import { Exo } from "next/font/google";
 
-export async function SaveCookiesSignIn(authorization) {
+export async function SaveCookiesSignIn(authorization, res) {
   // if (SignInAuth(email, password)) {
   const cookieStore = cookies();
-  const token = cookieStore.get("token");
   cookieStore.set("Authorization", authorization, {
     httpOnly: true,
     secure: true,
@@ -26,7 +24,7 @@ export async function AuthorizationForFetch(path) {
     const cookieStore = cookies();
     const authorization = await cookieStore.get("Authorization");
     // await console.log(authorization);
-    // await console.log(authorization.value);
+    await console.log(authorization.value);
     // await cookies().set("Authorization", authorization, { secure: true });
     const apiClient = axios.create({
       // withCredentials: true,
@@ -230,8 +228,6 @@ export async function AddSkill(Params) {
       "https://profileapp-api.onrender.com/api/v1/skills",
       Params
     );
-    console.log(`res:${res}`);
-    console.log(`resstatus:${res.status}`);
     const resStatus = res.status;
     return resStatus;
   } catch (error) {

@@ -59,9 +59,7 @@ const UserDetails = () => {
       ? user.self_introduction
       : "";
 
-    router.push(
-      `/users/edit/${params.slug}?selfIntroduction=${selfIntroduction}`
-    );
+    router.push(`/users/edit/${params.slug}`);
   };
 
   const handleSelectChange = (selectedValue) => {

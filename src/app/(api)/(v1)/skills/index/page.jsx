@@ -11,18 +11,18 @@ const Index = () => {
   const handleValueChange = (newValue) => {
     setCategoryId(newValue);
   };
-  const renderSkillIndexForm = () => {
-    return (
-      // <Auth>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <HeaderSignedIn />
-        <Categories />
-        <Footer />
-      </div>
-      // </Auth>
-    );
-  };
+  // const renderSkillIndexForm = () => {
+  return (
+    // <Auth>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <HeaderSignedIn />
+      <Categories />
+      <Footer />
+    </div>
+    // </Auth>
+  );
+  // };
 
-  return <>{renderSkillIndexForm()}</>;
+  // return <>{renderSkillIndexForm()}</>;
 };
 export default Index;

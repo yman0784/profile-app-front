@@ -52,7 +52,7 @@ const Categories = () => {
     //   });
     const resData = await fetchSkills();
     // debugger;
-    console.log(resData);
+    console.log(`getCategory_resData:${resData}`);
     console.log(resData.category_id);
     setResponseData(resData);
     setCategoryNames(resData.category_names);

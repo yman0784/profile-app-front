@@ -86,7 +86,6 @@ const Categories = () => {
 
   useEffect(() => {
     getCategory();
-    console.log(`categorypageskills:${skills}`);
   }, []);
 
   return (

@@ -6,23 +6,23 @@ import Categories from "@/components/atoms/organisms/skill/Categories";
 import Auth from "@/components/Auth";
 import Footer from "@/components/atoms/layouts/Footer/Footer";
 
-const Skills = () => {
+const Index = () => {
   const [categoryId, setCategoryId] = useState("");
   const handleValueChange = (newValue) => {
     setCategoryId(newValue);
   };
   const renderSkillIndexForm = () => {
     return (
-      <Auth>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <HeaderSignedIn />
-          <Categories />
-          <Footer />
-        </div>
-      </Auth>
+      // <Auth>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <HeaderSignedIn />
+        <Categories />
+        <Footer />
+      </div>
+      // </Auth>
     );
   };
 
   return <>{renderSkillIndexForm()}</>;
 };
-export default Skills;
+export default Index;
